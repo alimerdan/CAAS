@@ -1,14 +1,31 @@
-using CAAS.ApiProvider.Models;
-using System;
+using CAAS.Exceptions;
+using CAAS.Models;
+using CAAS.Utilities;
+using CAAS.Wrappers;
 
-namespace CAAS.ApiProvider.Handlers
+namespace CAAS.Handlers
 {
     public static class DecryptionRequestHandler
     {
         public static DecryptionResponse Handle(DecryptionRequest _decRequest)
         {
-            DecryptionResponse res = new DecryptionResponse(); ;
-            res.PlainText = CAAS.Utilities.SupportedOperations.Symmetric.aes.decrypt();
+            byte[] key = Utils.HexStringToByteArray(_decRequest.HexKey);
+            byte[] cipherData = Utils.HexStringToByteArray(_decRequest.HexCipherData);
+            string algorithm = _decRequest.Algorithm.Trim().ToLower();
+            DecryptionResponse res = new DecryptionResponse();
+
+            byte[] data;
+            switch (algorithm)
+            {
+                case ("aes"):
+                    data = AESWrapper.Decrypt(cipherData, key);
+                    break;
+                default:
+                    throw new NotSupportedAlgorithmException(algorithm);
+
+
+            }
+            res.HexData = Utils.ByteArrayToHexString(data);
             return res;
         }
     }

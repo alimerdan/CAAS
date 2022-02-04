@@ -1,9 +1,9 @@
-namespace CAAS.ApiProvider.Models
+namespace CAAS.Models
 {
     public class DecryptionRequest
     {
-        public string CipherText { get; set; }
+        public string HexCipherData { get; set; }
         public string Algorithm { get; set; }
-        public string Key { get; set; }
+        public string HexKey { get; set; }
     }
 }

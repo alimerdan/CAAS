@@ -1,6 +1,6 @@
 using System;
 
-namespace CAAS.ApiProvider
+namespace CAAS
 {
     public class ErrorResponse
     {

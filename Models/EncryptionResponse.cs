@@ -1,7 +1,7 @@
-namespace CAAS.ApiProvider.Models
+namespace CAAS.Models
 {
     public class EncryptionResponse
     {
-        public string CipherText { get; set; }
+        public string HexCipherData { get; set; }
     }
 }
