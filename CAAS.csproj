@@ -2,18 +2,24 @@
 
   <PropertyGroup>
     <TargetFramework>netcoreapp3.1</TargetFramework>
+    <GenerateAssemblyInfo>false</GenerateAssemblyInfo>	
     <UserSecretsId>c3e32821-76c6-4072-90f2-f133349908be</UserSecretsId>
     <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
     <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
+
   <ItemGroup>
+    <PackageReference Include="BouncyCastle.NetCore" Version="1.8.10" />
     <PackageReference Include="Microsoft.VisualStudio.Azure.Containers.Tools.Targets" Version="1.14.0" />
     <PackageReference Include="Swashbuckle.AspNetCore" Version="6.2.3" />
   </ItemGroup>
 
+
   <ItemGroup>
-    <ProjectReference Include="..\CryptoLib\CryptoLib.csproj" />
+    <Reference Include="CryptoLib">
+      <HintPath>CryptoLib.dll</HintPath>
+    </Reference>
   </ItemGroup>
 
 
