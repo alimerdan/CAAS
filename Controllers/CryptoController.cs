@@ -18,6 +18,14 @@ namespace CAAS.Controllers
             _logger = logger;
         }
 
+        [HttpGet]
+        [Route("~/api/v1")]
+        [Route("~/")]
+        public string Get()
+        {
+            return "{\"status\":\"i'm Healthy\"}";
+        }
+
         [HttpPost("encrypt")]
         public ActionResult<EncryptionResponse> Encrypt([FromBody] EncryptionRequest encRequest)
         {
