@@ -19,11 +19,17 @@ namespace CAAS.Controllers
         }
 
         [HttpGet]
-        [Route("~/api/v1")]
-        [Route("~/")]
-        public string Get()
+        [Route("~/api/v1/health")]
+        public ActionResult<HealthCheckResponse> Get()
         {
-            return "{\"status\":\"i'm Healthy\"}";
+            try
+            {
+                return Ok(HealthChecker.CheckHealth());
+            }
+            catch (Exception ex)
+            {
+                return BadRequest(new ErrorResponse(ex));
+            }
         }
 
         [HttpPost("encrypt")]

@@ -2,6 +2,7 @@ using CAAS.Exceptions;
 using CAAS.Models;
 using CAAS.Utilities;
 using CAAS.Wrappers;
+using System.Diagnostics;
 
 namespace CAAS.Handlers
 {
@@ -9,6 +10,9 @@ namespace CAAS.Handlers
     {
         public static EncryptionResponse Handle(EncryptionRequest _encRequest)
         {
+            Stopwatch stopwatch = new Stopwatch();
+            stopwatch.Start();
+
             byte[] key = Utils.HexStringToByteArray(_encRequest.HexKey);
             byte[] data = Utils.HexStringToByteArray(_encRequest.HexData);
             string algorithm = _encRequest.Algorithm.Trim().ToLower();
@@ -25,6 +29,8 @@ namespace CAAS.Handlers
 
             }
             res.HexCipherData = Utils.ByteArrayToHexString(AESWrapper.Encrypt(data, key));
+            stopwatch.Stop();
+            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds.ToString();
             return res;
         }
     }
