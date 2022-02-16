@@ -7,7 +7,7 @@ namespace CAAS.Utilities
     {
         public static string ByteArrayToHexString(byte[] bytes)
         {
-            return Hex.ToHexString(bytes);
+            return Hex.ToHexString(bytes).ToUpper();
         }
 
         public static byte[] HexStringToByteArray(string hexVal)
@@ -65,7 +65,6 @@ namespace CAAS.Utilities
             byte[] base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return enc.GetString(base64EncodedBytes);
         }
-
 
     }
 }
