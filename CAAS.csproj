@@ -16,11 +16,4 @@
   </ItemGroup>
 
 
-  <ItemGroup>
-    <Reference Include="CryptoLib">
-      <HintPath>CryptoLib.dll</HintPath>
-    </Reference>
-  </ItemGroup>
-
-
 </Project>
