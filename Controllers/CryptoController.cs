@@ -7,6 +7,7 @@ using System;
 namespace CAAS.Controllers
 {
     [ApiController]
+    [Produces("application/json")]
     [Route("api/v1/[controller]")]
     public class CryptoController : ControllerBase
     {
@@ -33,6 +34,9 @@ namespace CAAS.Controllers
         }
 
         [HttpPost("encrypt")]
+        [Consumes("application/json")]
+        [ProducesResponseType(typeof(EncryptionResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
         public ActionResult<EncryptionResponse> Encrypt([FromBody] EncryptionRequest encRequest)
         {
             try
@@ -46,6 +50,9 @@ namespace CAAS.Controllers
         }
 
         [HttpPost("decrypt")]
+        [Consumes("application/json")]
+        [ProducesResponseType(typeof(DecryptionResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
         public ActionResult<DecryptionResponse> Decrypt([FromBody] DecryptionRequest decRequest)
         {
 
