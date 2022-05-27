@@ -8,6 +8,10 @@
     <DockerfileContext>.</DockerfileContext>
   </PropertyGroup>
 
+  <ItemGroup>
+    <None Remove="caas-service.yaml" />
+  </ItemGroup>
+
 
   <ItemGroup>
     <PackageReference Include="BouncyCastle.NetCore" Version="1.8.10" />

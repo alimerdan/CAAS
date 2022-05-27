@@ -1,5 +1,6 @@
 using CAAS.Handlers;
 using CAAS.Models;
+using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
@@ -18,17 +19,19 @@ namespace CAAS.Controllers
         {
             _logger = logger;
         }
-
         [HttpGet]
         [Route("~/api/v1/health")]
         public ActionResult<HealthCheckResponse> Get()
         {
             try
             {
-                return Ok(HealthChecker.CheckHealth());
+                HealthCheckResponse res = HealthChecker.CheckHealth();
+                _logger.LogInformation(Utils.GetNow() + "\t-\t" + Request.Path + "\t-\t" + res.ProcessingTimeInMs + " ms");
+                return Ok(res);
             }
             catch (Exception ex)
             {
+                _logger.LogError(Utils.GetNow() + "\t-\t" + Request.Path + "\t-\t"+ex.Message);
                 return BadRequest(new ErrorResponse(ex));
             }
         }
@@ -41,10 +44,13 @@ namespace CAAS.Controllers
         {
             try
             {
-                return Ok(EncryptionRequestHandler.Handle(encRequest));
+                EncryptionResponse res = EncryptionRequestHandler.Handle(encRequest);
+                _logger.LogInformation(Utils.GetNow() + "\t-\t" + Request.Path + "\t-\t" + res.ProcessingTimeInMs + " ms");
+                return Ok(res);
             }
             catch (Exception ex)
             {
+                _logger.LogError(Utils.GetNow() + "\t-\t" + Request.Path + "\t-\t" + ex.Message);
                 return BadRequest(new ErrorResponse(ex));
             }
         }
@@ -55,13 +61,15 @@ namespace CAAS.Controllers
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         public ActionResult<DecryptionResponse> Decrypt([FromBody] DecryptionRequest decRequest)
         {
-
             try
             {
-                return Ok(DecryptionRequestHandler.Handle(decRequest));
+                DecryptionResponse res = DecryptionRequestHandler.Handle(decRequest);
+                _logger.LogInformation(Utils.GetNow() + "\t-\t" + Request.Path + "\t-\t" + res.ProcessingTimeInMs + " ms");
+                return Ok(res);
             }
             catch (Exception ex)
             {
+                _logger.LogError(Utils.GetNow() + "\t-\t" + Request.Path + "\t-\t" + ex.Message);
                 return BadRequest(new ErrorResponse(ex));
             }
         }
