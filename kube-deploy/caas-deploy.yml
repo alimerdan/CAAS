@@ -33,11 +33,11 @@ spec:
             failureThreshold: 3
           resources:
            requests:
-            memory: "50Mi"
-            cpu: "50m"
+            memory: "150Mi"
+            cpu: "150m"
            limits:
-            memory: "50Mi"
-            cpu: "50m"
+            memory: "300Mi"
+            cpu: "250m"
           env:
             - name: ASPNETCORE_URLS
               value: http://+:80
@@ -76,17 +76,17 @@ spec:
     kind: Deployment
     name: caas-api-app
   minReplicas: 1
-  maxReplicas: 5
+  maxReplicas: 1
   metrics:
   - type: Resource
     resource:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 30
+        averageUtilization: 70
   - type: Resource
     resource:
       name: memory
       target:
         type: AverageValue
-        averageValue: 20Mi    
+        averageValue: 210Mi    
