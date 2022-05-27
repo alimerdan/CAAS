@@ -13,8 +13,8 @@ namespace CAAS.Handlers
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            byte[] key = Utils.HexStringToByteArray(_encRequest.HexKey);
-            byte[] data = Utils.HexStringToByteArray(_encRequest.HexData);
+            byte[] key = Utils.HexStringToByteArray(_encRequest.HexKey.Replace(" ",""));
+            byte[] data = Utils.HexStringToByteArray(_encRequest.HexData.Replace(" ",""));
             string algorithm = _encRequest.Algorithm.Trim().ToLower();
             EncryptionResponse res = new EncryptionResponse();
             byte[] cipher;
