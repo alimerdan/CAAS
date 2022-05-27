@@ -1,10 +1,15 @@
 ﻿using Org.BouncyCastle.Utilities.Encoders;
+using System;
 using System.Text;
 
 namespace CAAS.Utilities
 {
     public static class Utils
     {
+        public static string GetNow()
+        {
+            return DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
+        }
         public static string ByteArrayToHexString(byte[] bytes)
         {
             return Hex.ToHexString(bytes).ToUpper();

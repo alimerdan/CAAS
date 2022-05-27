@@ -1,0 +1,92 @@
+﻿apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: caas-api-app-deployment
+  labels:
+    app: caas-api-app
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      service: caas-app
+  template:
+    metadata:
+      labels:
+        app: caas-api-app
+        service: caas-app
+    spec:
+      containers:
+        - name: caas-api-app-container
+          image: docker.io/alimerdan/caas:latest
+          imagePullPolicy: Always
+          ports:
+            - containerPort: 80
+              protocol: TCP
+          readinessProbe:
+            httpGet:
+                path: /api/v1/health
+                port: 80
+            initialDelaySeconds: 0
+            periodSeconds: 20
+            timeoutSeconds: 5
+            successThreshold: 1
+            failureThreshold: 3
+          resources:
+           requests:
+            memory: "50Mi"
+            cpu: "50m"
+           limits:
+            memory: "50Mi"
+            cpu: "50m"
+          env:
+            - name: ASPNETCORE_URLS
+              value: http://+:80
+            - name: DOTNET_RUNNING_IN_CONTAINER
+              value: "1"
+            - name: PATH
+              value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+            - name: NUGET_PACKAGES
+              value: /root/.nuget/fallbackpackages2
+            - name: NUGET_FALLBACK_PACKAGES
+              value: /root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2
+
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: caas-app
+  labels:
+    app: caas-api-app
+    service: caas-app
+spec:
+  ports:
+    - port: 80
+      targetPort: 80
+      protocol: TCP
+  selector:
+    service: caas-app
+---
+apiVersion: autoscaling/v2beta2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: caas-horizontal-autoscaler
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: caas-api-app
+  minReplicas: 1
+  maxReplicas: 5
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: AverageValue
+        averageValue: 35Mi    
