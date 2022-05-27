@@ -27,7 +27,7 @@ spec:
                 path: /api/v1/health
                 port: 80
             initialDelaySeconds: 0
-            periodSeconds: 20
+            periodSeconds: 60
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 3
@@ -83,10 +83,10 @@ spec:
       name: cpu
       target:
         type: Utilization
-        averageUtilization: 70
+        averageUtilization: 30
   - type: Resource
     resource:
       name: memory
       target:
         type: AverageValue
-        averageValue: 35Mi    
+        averageValue: 20Mi    
