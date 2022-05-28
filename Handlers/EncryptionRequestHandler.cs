@@ -3,6 +3,7 @@ using CAAS.Models;
 using CAAS.Utilities;
 using CAAS.Wrappers;
 using System.Diagnostics;
+using System.Threading;
 
 namespace CAAS.Handlers
 {
@@ -25,8 +26,6 @@ namespace CAAS.Handlers
                     break;
                 default:
                     throw new NotSupportedAlgorithmException(algorithm);
-
-
             }
             res.HexCipherData = Utils.ByteArrayToHexString(AESWrapper.Encrypt(data, key));
             stopwatch.Stop();

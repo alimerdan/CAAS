@@ -8,7 +8,7 @@ namespace CAAS.Utilities
     {
         public static string GetNow()
         {
-            return DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss]");
+            return DateTime.Now.ToString("[yyyy-MM-dd HH:mm:ss.fff]");
         }
         public static string ByteArrayToHexString(byte[] bytes)
         {
