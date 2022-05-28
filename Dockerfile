@@ -22,6 +22,10 @@ WORKDIR /app
 COPY --from=publish /app/publish .
 
 # Make sure the app binds to port 80
-ENV ASPNETCORE_URLS http://*:80
+ENV ASPNETCORE_URLS="http://+:80"
+ENV DOTNET_RUNNING_IN_CONTAINER="true"
+ENV PATH="/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin"
+ENV NUGET_PACKAGES="/root/.nuget/fallbackpackages2"
+ENV NUGET_FALLBACK_PACKAGES="value: /root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2"
 
 ENTRYPOINT ["dotnet", "CAAS.dll"]

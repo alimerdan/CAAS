@@ -1,7 +1,7 @@
 ﻿apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: caas-api-app-deployment
+  name: caas-api-app
   labels:
     app: caas-api-app
 spec:
@@ -33,23 +33,11 @@ spec:
             failureThreshold: 3
           resources:
            requests:
-            memory: "150Mi"
-            cpu: "150m"
-           limits:
-            memory: "300Mi"
+            memory: "512Mi"
             cpu: "250m"
-          env:
-            - name: ASPNETCORE_URLS
-              value: http://+:80
-            - name: DOTNET_RUNNING_IN_CONTAINER
-              value: "1"
-            - name: PATH
-              value: /usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
-            - name: NUGET_PACKAGES
-              value: /root/.nuget/fallbackpackages2
-            - name: NUGET_FALLBACK_PACKAGES
-              value: /root/.nuget/fallbackpackages;/root/.nuget/fallbackpackages2
-
+           limits:
+            memory: "512Mi"
+            cpu: "250m"
 ---
 apiVersion: v1
 kind: Service
@@ -89,4 +77,4 @@ spec:
       name: memory
       target:
         type: AverageValue
-        averageValue: 210Mi    
+        averageValue: 300Mi    
