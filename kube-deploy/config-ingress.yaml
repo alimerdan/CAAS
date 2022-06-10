@@ -1,8 +1,35 @@
-﻿apiVersion: v1
-kind: ConfigMap
+﻿##################################################################################################
+# Ingress 
+##################################################################################################
+apiVersion: networking.k8s.io/v1
+kind: Ingress
 metadata:
-  name: nginx-ingress-ingress-nginx-controller
-  namespace: alimerdan
-  labels:
-    app.kubernetes.io/name: ingress-nginx
-    app.kubernetes.io/part-of: ingress-nginx
+  name: caas-ingress
+  annotations:
+    kubernetes.io/ingress.class: "nginx"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
+    nginx.ingress.kubernetes.io/proxy-connect-timeout: '120'
+    nginx.ingress.kubernetes.io/proxy-read-timeout: '120'
+    nginx.ingress.kubernetes.io/proxy-send-timeout: '120'
+    nginx.ingress.kubernetes.io/use-regex: "true"
+    nginx.ingress.kubernetes.io/configuration-snippet: |
+      proxy_set_header x-request $req_id;
+      proxy_set_header Strict-Transport-Security 'max-age=31536000; includeSubDomains; preload';
+      more_set_headers "X-Frame-Options: Deny";
+      more_set_headers "X-Xss-Protection: 1; mode=block";
+      more_set_headers "X-Content-Type-Options: nosniff";
+      more_set_headers "Content-Security-Policy default-src 'unsafe-inline' 'unsafe-eval' 'self'; img-src 'self' data: ; object-src 'none'; child-src 'none'; frame-src 'none'; frame-ancestors 'none';";
+    nginx.ingress.kubernetes.io/cors-allow-methods: "GET, POST"
+    nginx.ingress.kubernetes.io/enable-opentracing: "false"
+spec:
+  rules:
+    - host: merdan.minikube.local
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: caas-app
+                port:
+                  number: 80
