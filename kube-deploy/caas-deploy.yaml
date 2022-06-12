@@ -33,10 +33,10 @@ spec:
             failureThreshold: 3
           resources:
            requests:
-            memory: "1024Mi"
+            memory: "512Mi"
             cpu: "250m"
            limits:
-            memory: "1024Mi"
+            memory: "512Mi"
             cpu: "250m"
 ---
 apiVersion: v1
@@ -77,4 +77,4 @@ spec:
       name: memory
       target:
         type: AverageValue
-        averageValue: 300Mi    
+        averageValue: 300Mi

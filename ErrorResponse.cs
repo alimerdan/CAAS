@@ -1,4 +1,5 @@
 using System;
+using System.ComponentModel.DataAnnotations;
 
 namespace CAAS
 {
@@ -12,10 +13,11 @@ namespace CAAS
             StackTrace = ex.StackTrace;
         }
 
+        [Required]
         public string ExceptionType { set; get; }
-
+        [Required]
         public string ErrorMessage { set; get; }
-
+        [Required]
         public string StackTrace { set; get; }
     }
 }
