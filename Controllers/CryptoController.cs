@@ -1,18 +1,20 @@
 using CAAS.Handlers;
 using CAAS.Models;
 using CAAS.Utilities;
+using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace CAAS.Controllers
 {
     [ApiController]
     [Produces("application/json")]
-    [Route("api/v1/[controller]")]
+    //[Route("api/v1/[controller]")]
+    [Route("api/v1/")]
     public class CryptoController : ControllerBase
     {
-
         private readonly ILogger<CryptoController> _logger;
 
         public CryptoController(ILogger<CryptoController> logger)
@@ -22,6 +24,8 @@ namespace CAAS.Controllers
 
         [HttpGet]
         [Route("~/api/v1/health")]
+        [ProducesResponseType(typeof(HealthCheckResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
         public ActionResult<HealthCheckResponse> Get()
         {
             try
@@ -44,6 +48,7 @@ namespace CAAS.Controllers
         [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(EncryptionResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
         public ActionResult<EncryptionResponse> Encrypt([FromBody] EncryptionRequest encRequest)
         {
             try
@@ -60,12 +65,18 @@ namespace CAAS.Controllers
             }
         }
 
+        /// <summary>
+        /// Decrypt Data
+        /// </summary>
+        /// <param name="decRequest"></param>
+        /// <returns>Response Object</returns>
         [HttpPost("decrypt")]
         [Consumes("application/json")]
         [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(DecryptionResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
         public ActionResult<DecryptionResponse> Decrypt([FromBody] DecryptionRequest decRequest)
         {
             try
