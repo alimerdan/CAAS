@@ -18,8 +18,8 @@ namespace CAAS.Models
         /// Encryption Algorithm to use
         /// </summary>
         [Required]
-        [DefaultValue("aes")]
-        public string Algorithm { get; set; }
+        [DefaultValue(SupportedAlgorithms.aes_cbc)]
+        public SupportedAlgorithms Algorithm { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>

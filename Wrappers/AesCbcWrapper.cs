@@ -2,7 +2,7 @@
 
 namespace CAAS.Wrappers
 {
-    public static class AESWrapper
+    public static class AesCbcWrapper
     {
         public static byte[] Encrypt(byte[] data, byte[] key)
         {
