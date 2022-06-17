@@ -15,21 +15,24 @@ namespace CAAS.Handlers
 
             byte[] key = Utils.HexStringToByteArray(_decRequest.HexKey.Replace(" ", ""));
             byte[] cipherData = Utils.HexStringToByteArray(_decRequest.HexCipherData.Replace(" ", ""));
-            string algorithm = _decRequest.Algorithm.Trim().ToLower();
+            string algorithm = _decRequest.Algorithm.ToString().Trim().ToLower();
             DecryptionResponse res = new DecryptionResponse();
 
             byte[] data;
-            switch (algorithm)
+            switch (_decRequest.Algorithm)
             {
-                case ("aes"):
-                    data = AESWrapper.Decrypt(cipherData, key);
+                case (SupportedAlgorithms.aes_ebc):
+                    data = AesEcbWrapper.Decrypt(cipherData, key);
+                    break;
+                case (SupportedAlgorithms.aes_cbc):
+                    data = AesCbcWrapper.Decrypt(cipherData, key);
                     break;
                 default:
                     throw new NotSupportedAlgorithmException(algorithm);
 
 
             }
-            
+
             res.HexData = Utils.ByteArrayToHexString(data);
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds.ToString();

@@ -19,6 +19,6 @@ namespace CAAS.Models
         /// </summary>
         [Required]
         [DefaultValue("11 ms")]
-        public string ProcessingTimeInMs { get; set; } 
+        public string ProcessingTimeInMs { get; set; }
     }
 }

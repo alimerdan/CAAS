@@ -1,10 +1,8 @@
 using CAAS.Handlers;
 using CAAS.Models;
 using CAAS.Utilities;
-using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
-using Swashbuckle.AspNetCore.Annotations;
 using System;
 
 namespace CAAS.Controllers
