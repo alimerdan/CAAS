@@ -24,7 +24,7 @@ metadata:
     nginx.ingress.kubernetes.io/enable-opentracing: "false"
 spec:
   rules:
-    - host: merdan.minikube.local
+    - host: caas.alimerdan.local
       http:
         paths:
           - path: /
