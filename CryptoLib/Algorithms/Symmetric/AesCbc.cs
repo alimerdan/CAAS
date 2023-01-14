@@ -9,7 +9,7 @@ namespace CAAS.CryptoLib.Algorithms.Symmetric
         private readonly CipherMode mode = CipherMode.CBC;
         public byte[] Encrypt(byte[] plainBytes, byte[] key, byte[] iv = null)
         {
-            iv = iv ?? new byte[16];
+            iv ??= new byte[16];
             try
             {
                 Aes aes = GetManagedAes(key, iv);
@@ -24,7 +24,7 @@ namespace CAAS.CryptoLib.Algorithms.Symmetric
 
         public byte[] Decrypt(byte[] encryptedBytes, byte[] key, byte[] iv = null)
         {
-            iv = iv ?? new byte[16];
+            iv ??= new byte[16];
             try
             {
                 Aes aes = GetManagedAes(key, iv);

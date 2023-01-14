@@ -1,25 +1,26 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CAAS.Models
+namespace CAAS.Models.Symmetric.Decryption
 {
     /// <summary>
-    /// Encryption Request Object
+    /// Decryption Request Object
     /// </summary>
-    public class EncryptionRequest
+    public class DecryptionRequest
     {
         /// <summary>
-        /// Plain Data in Hex Format
+        /// Encrypted/Ciphered Data in Hex Format
         /// </summary>
+        /// <example>123</example>
         [Required]
-        [DefaultValue("0011223344556677")]
-        public string HexData { get; set; }
+        [DefaultValue("C656C652E6656125139C219FD9F6EABB")]
+        public string HexCipherData { get; set; }
         /// <summary>
         /// Encryption Algorithm to use
         /// </summary>
         [Required]
-        [DefaultValue(SupportedAlgorithms.aes_cbc)]
-        public SupportedAlgorithms Algorithm { get; set; }
+        [DefaultValue(SymmetricSupportedAlgorithms.aes_cbc)]
+        public SymmetricSupportedAlgorithms Algorithm { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>

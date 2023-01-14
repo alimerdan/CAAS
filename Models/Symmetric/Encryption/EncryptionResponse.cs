@@ -1,19 +1,19 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CAAS.Models
+namespace CAAS.Models.Symmetric.Encryption
 {
     /// <summary>
-    /// Decryption Response Object
+    /// Encryption Response Object
     /// </summary>
-    public class DecryptionResponse
+    public class EncryptionResponse
     {
         /// <summary>
-        /// Decrypted/Plain Data in Hex Format
+        /// Encrypted/Ciphered Data in Hex Format
         /// </summary>
         [Required]
-        [DefaultValue("0011223344556677")]
-        public string HexData { get; set; }
+        [DefaultValue("C656C652E6656125139C219FD9F6EABB")]
+        public string HexCipherData { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>
