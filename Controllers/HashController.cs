@@ -32,8 +32,7 @@ namespace CAAS.Controllers
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                CAASDataType retDataType;
-                HashResponse res = HashRequestHandler.Handle(hashRequest,dataType, out retDataType);
+                HashResponse res = HashRequestHandler.Handle(hashRequest, dataType, out CAASDataType retDataType);
                 Response.Headers.Add("CAAS-Data-Type", retDataType.ToString());
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
