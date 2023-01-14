@@ -27,7 +27,7 @@ spec:
                 path: /api/v1/health
                 port: 80
             initialDelaySeconds: 0
-            periodSeconds: 60
+            periodSeconds: 10
             timeoutSeconds: 5
             successThreshold: 1
             failureThreshold: 3
@@ -54,7 +54,7 @@ spec:
   selector:
     service: caas-app
 ---
-apiVersion: autoscaling/v2beta2
+apiVersion: autoscaling/v2
 kind: HorizontalPodAutoscaler
 metadata:
   name: caas-horizontal-autoscaler
