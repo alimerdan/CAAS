@@ -1,7 +1,7 @@
 ﻿using Org.BouncyCastle.Utilities.Encoders;
 using System.Text;
 
-namespace CAAS.CryptoLib.CryptoAlgorithms
+namespace CAAS.CryptoLib
 {
     public class Utilities
     {

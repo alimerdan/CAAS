@@ -1,10 +1,12 @@
+using CAAS.CryptoLib.Algorithms.Symmetric;
+using CAAS.CryptoLib.Interfaces;
 using CAAS.Exceptions;
-using CAAS.Models;
+using CAAS.Models.Symmetric;
+using CAAS.Models.Symmetric.Encryption;
 using CAAS.Utilities;
-using CAAS.Wrappers;
 using System.Diagnostics;
 
-namespace CAAS.Handlers
+namespace CAAS.Handlers.Symmetric
 {
     public static class EncryptionRequestHandler
     {
@@ -15,21 +17,14 @@ namespace CAAS.Handlers
 
             byte[] key = Utils.HexStringToByteArray(_encRequest.HexKey.Replace(" ", ""));
             byte[] data = Utils.HexStringToByteArray(_encRequest.HexData.Replace(" ", ""));
-            string algorithm = _encRequest.Algorithm.ToString().Trim().ToLower();
             EncryptionResponse res = new EncryptionResponse();
-            byte[] cipher;
-            switch (_encRequest.Algorithm)
+            ISymmetric processor = _encRequest.Algorithm switch
             {
-                case (SupportedAlgorithms.aes_ebc):
-                    cipher = AesEcbWrapper.Encrypt(data, key);
-                    break;
-                case (SupportedAlgorithms.aes_cbc):
-                    cipher = AesCbcWrapper.Encrypt(data, key);
-                    break;
-                default:
-                    throw new NotSupportedAlgorithmException(algorithm);
-            }
-            res.HexCipherData = Utils.ByteArrayToHexString(AesEcbWrapper.Encrypt(data, key));
+                SymmetricSupportedAlgorithms.aes_ebc => new AesEcb(),
+                SymmetricSupportedAlgorithms.aes_cbc => new AesCbc(),
+                _ => throw new NotSupportedAlgorithmException(_encRequest.Algorithm.ToString().Trim().ToLower()),
+            };
+            res.HexCipherData = Utils.ByteArrayToHexString(processor.Encrypt(data, key));
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds.ToString();
             return res;
