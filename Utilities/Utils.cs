@@ -1,4 +1,6 @@
-﻿using Org.BouncyCastle.Utilities.Encoders;
+﻿using CAAS.Exceptions;
+using CAAS.Models;
+using Org.BouncyCastle.Utilities.Encoders;
 using System;
 using System.Text;
 
@@ -44,19 +46,17 @@ namespace CAAS.Utilities
         }
         public static byte[] Base64StringToByteArray(string base64EncodedData, Encoding enc = null)
         {
-            string text = DecodeBase64(base64EncodedData, enc);
-            return StringToByteArray(text, enc);
+            return Convert.FromBase64String(base64EncodedData);
         }
         public static string ByteArrayToBase64String(byte[] data, Encoding enc = null)
         {
-            string text = ByteArrayToString(data, enc);
-            return EncodeBase64(text, enc);
+            return Convert.ToBase64String(data);
         }
         public static string EncodeBase64(string plainText, Encoding enc = null)
         {
             if (enc == null)
             {
-                enc = Encoding.UTF8;
+                enc = Encoding.ASCII;
             }
             byte[] plainTextBytes = enc.GetBytes(plainText);
             return System.Convert.ToBase64String(plainTextBytes);
@@ -65,11 +65,33 @@ namespace CAAS.Utilities
         {
             if (enc == null)
             {
-                enc = Encoding.UTF8;
+                enc = Encoding.ASCII;
             }
             byte[] base64EncodedBytes = System.Convert.FromBase64String(base64EncodedData);
             return enc.GetString(base64EncodedBytes);
         }
 
+        public static string TransformData(string dataFormaValue, byte[] data)
+        {
+            return DataFormatValues.GetDataFormat(dataFormaValue) switch
+            {
+                (DataFormat.hex) => Utils.ByteArrayToHexString(data),
+                (DataFormat.base64) => Utils.ByteArrayToBase64String(data),
+                (DataFormat.ascii) => Utils.ByteArrayToString(data, System.Text.Encoding.ASCII),
+                (DataFormat.utf8) => Utils.ByteArrayToString(data, System.Text.Encoding.UTF8),
+                _ => throw new NotSupportedDataFormatException(dataFormaValue),
+            };
+        }
+        public static byte[] TransformData(string dataFormaValue, string data)
+        {
+            return DataFormatValues.GetDataFormat(dataFormaValue) switch
+            {
+                (DataFormat.hex) => Utils.HexStringToByteArray(data),
+                (DataFormat.base64) => Utils.Base64StringToByteArray(data),
+                (DataFormat.ascii) => Utils.StringToByteArray(data, System.Text.Encoding.ASCII),
+                (DataFormat.utf8) => Utils.StringToByteArray(data, System.Text.Encoding.UTF8),
+                _ => throw new NotSupportedDataFormatException(dataFormaValue),
+            };
+        }
     }
 }

@@ -13,7 +13,7 @@ namespace CAAS.Models.Symmetric.Decryption
         /// </summary>
         [Required]
         [DefaultValue("0011223344556677")]
-        public string HexData { get; set; }
+        public string Data { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>

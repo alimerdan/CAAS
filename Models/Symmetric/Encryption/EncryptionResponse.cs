@@ -13,7 +13,7 @@ namespace CAAS.Models.Symmetric.Encryption
         /// </summary>
         [Required]
         [DefaultValue("C656C652E6656125139C219FD9F6EABB")]
-        public string HexCipherData { get; set; }
+        public string CipherData { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>
