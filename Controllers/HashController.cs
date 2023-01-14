@@ -1,4 +1,5 @@
 ﻿using CAAS.Handlers.Hash;
+using CAAS.Models;
 using CAAS.Models.Hash;
 using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -26,12 +27,14 @@ namespace CAAS.Controllers
         [ProducesResponseType(typeof(Models.Hash.HashResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public ActionResult<HashResponse> Encrypt([FromBody] Models.Hash.HashRequest hashRequest)
+        public ActionResult<HashResponse> Encrypt([FromBody] HashRequest hashRequest, [FromHeader(Name = "CAAS-Data-Type")] CAASDataType dataType=CAASDataType.hex)
         {
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                HashResponse res = HashRequestHandler.Handle(hashRequest);
+                CAASDataType retDataType;
+                HashResponse res = HashRequestHandler.Handle(hashRequest,dataType, out retDataType);
+                Response.Headers.Add("CAAS-Data-Type", retDataType.ToString());
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
             }

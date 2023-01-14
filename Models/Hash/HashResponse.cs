@@ -9,11 +9,11 @@ namespace CAAS.Models.Hash
     public class HashResponse
     {
         /// <summary>
-        /// Hashed Data in Hex Format
+        /// Digested Data
         /// </summary>
         [Required]
         [DefaultValue("d1a5f998fa6ed82da6943127533b412f2286b30c8473a819f70a8fec5913fea7")]
-        public string HexHashData { get; set; }
+        public string Digest { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>
