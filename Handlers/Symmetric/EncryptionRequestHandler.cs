@@ -15,16 +15,17 @@ namespace CAAS.Handlers.Symmetric
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            byte[] key = Utils.HexStringToByteArray(_encRequest.HexKey.Replace(" ", ""));
-            byte[] data = Utils.HexStringToByteArray(_encRequest.HexData.Replace(" ", ""));
+            byte[] key = Utils.TransformData(_encRequest.InputDataFormat, _encRequest.Key);
+            byte[] data = Utils.TransformData(_encRequest.InputDataFormat, _encRequest.Data);
             EncryptionResponse res = new EncryptionResponse();
-            ISymmetric processor = _encRequest.Algorithm switch
+            ISymmetric processor = SymmetricSupportedAlgorithmsValues.GetAlgorithm(_encRequest.Algorithm) switch
             {
                 SymmetricSupportedAlgorithms.aes_ebc => new AesEcb(),
                 SymmetricSupportedAlgorithms.aes_cbc => new AesCbc(),
                 _ => throw new NotSupportedAlgorithmException(_encRequest.Algorithm.ToString().Trim().ToLower()),
             };
-            res.HexCipherData = Utils.ByteArrayToHexString(processor.Encrypt(data, key));
+            byte[] cipherData = processor.Encrypt(data, key);
+            res.CipherData = Utils.TransformData(_encRequest.OutputDataFormat, cipherData);
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds.ToString();
             return res;

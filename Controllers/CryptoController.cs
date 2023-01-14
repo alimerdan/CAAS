@@ -4,6 +4,7 @@ using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace CAAS.Controllers
 {
@@ -22,7 +23,7 @@ namespace CAAS.Controllers
         [HttpGet("health")]
         [ProducesResponseType(typeof(HealthCheckResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public ActionResult<HealthCheckResponse> Get()
+        public ActionResult<HealthCheckResponse> GetHealth()
         {
             try
             {
@@ -30,6 +31,24 @@ namespace CAAS.Controllers
                 HealthCheckResponse res = HealthChecker.CheckHealth();
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{Utils.GetNow()} \t-\t Request.Path \t-\t {ex.Message}");
+                return BadRequest(new ErrorResponse(ex));
+            }
+        }
+
+        [HttpGet("dataformats")]
+        [ProducesResponseType(typeof(HashSet<string>), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public ActionResult<HashSet<string>> GetDataFormats()
+        {
+            try
+            {
+                _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
+                //_logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
+                return Ok(DataFormatValues.values);
             }
             catch (Exception ex)
             {

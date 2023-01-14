@@ -18,7 +18,21 @@ namespace CAAS.Models.Hash
         /// Hashing Algorithm to use
         /// </summary>
         [Required]
-        [DefaultValue(HashSupportedAlgorithms.sha256)]
-        public HashSupportedAlgorithms Algorithm { get; set; }
+        [DefaultValue("sha256")]
+        public string Algorithm { get; set; }
+
+        /// <summary>
+        /// Provided data format (hex, base64, ascii or utf8)
+        /// </summary>
+        [Required]
+        [DefaultValue("hex")]
+        public string InputDataFormat { get; set; }
+
+        /// <summary>
+        /// Required output data format (hex, base64, ascii or utf8)
+        /// </summary>
+        [Required]
+        [DefaultValue("hex")]
+        public string OutputDataFormat { get; set; }
     }
 }

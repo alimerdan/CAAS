@@ -1,11 +1,13 @@
 ﻿
 using CAAS.Handlers.Symmetric;
+using CAAS.Models.Symmetric;
 using CAAS.Models.Symmetric.Decryption;
 using CAAS.Models.Symmetric.Encryption;
 using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using System;
+using System.Collections.Generic;
 
 namespace CAAS.Controllers
 {
@@ -73,7 +75,23 @@ namespace CAAS.Controllers
             }
         }
 
-
+        [HttpGet("algorithms")]
+        [ProducesResponseType(typeof(HashSet<string>), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public ActionResult<HashSet<string>> GetHashAlgorithms()
+        {
+            try
+            {
+                _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
+                //_logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
+                return Ok(SymmetricSupportedAlgorithmsValues.values);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{Utils.GetNow()} \t-\t Request.Path \t-\t {ex.Message}");
+                return BadRequest(new ErrorResponse(ex));
+            }
+        }
 
     }
 }

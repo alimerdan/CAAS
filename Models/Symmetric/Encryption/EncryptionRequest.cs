@@ -13,18 +13,32 @@ namespace CAAS.Models.Symmetric.Encryption
         /// </summary>
         [Required]
         [DefaultValue("0011223344556677")]
-        public string HexData { get; set; }
+        public string Data { get; set; }
         /// <summary>
         /// Encryption Algorithm to use
         /// </summary>
         [Required]
-        [DefaultValue(SymmetricSupportedAlgorithms.aes_cbc)]
-        public SymmetricSupportedAlgorithms Algorithm { get; set; }
+        [DefaultValue("aes_cbc")]
+        public string Algorithm { get; set; }
         /// <summary>
         /// Request Processing Time in ms
         /// </summary>
         [Required]
         [DefaultValue("00112233445566770011223344556677")]
-        public string HexKey { get; set; }
+        public string Key { get; set; }
+
+        /// <summary>
+        /// Provided data format (hex, base64, ascii or utf8)
+        /// </summary>
+        [Required]
+        [DefaultValue("hex")]
+        public string InputDataFormat { get; set; }
+
+        /// <summary>
+        /// Required output data format (hex, base64, ascii or utf8)
+        /// </summary>
+        [Required]
+        [DefaultValue("hex")]
+        public string OutputDataFormat { get; set; }
     }
 }
