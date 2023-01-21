@@ -1,12 +1,12 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CAAS.Models.Symmetric.Encryption
+namespace CAAS.Models.Mac.Sign
 {
     /// <summary>
-    /// Encryption Request Object
+    /// Signing Request Object
     /// </summary>
-    public class EncryptionRequest
+    public class SignRequest
     {
         /// <summary>
         /// Plain Data Value
@@ -15,10 +15,10 @@ namespace CAAS.Models.Symmetric.Encryption
         [DefaultValue("0011223344556677")]
         public string Data { get; set; }
         /// <summary>
-        /// Encryption Algorithm to use
+        /// Signing Algorithm to use
         /// </summary>
         [Required]
-        [DefaultValue("aes_cbc_pkcs7")]
+        [DefaultValue("aes128_cmac")]
         public string Algorithm { get; set; }
         /// <summary>
         /// Key Value
