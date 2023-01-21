@@ -24,7 +24,7 @@ namespace CAAS.Controllers
         [Consumes("application/json")]
         [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [DisableRequestSizeLimit]
-        [ProducesResponseType(typeof(Models.Hash.HashResponse), 200)]
+        [ProducesResponseType(typeof(RngResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
         public ActionResult<RngResponse> Generate([FromBody] RngRequest RngRequest)

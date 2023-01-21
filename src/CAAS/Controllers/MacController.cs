@@ -25,7 +25,7 @@ namespace CAAS.Controllers
         [Consumes("application/json")]
         [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [DisableRequestSizeLimit]
-        [ProducesResponseType(typeof(SignRequest), 200)]
+        [ProducesResponseType(typeof(SignResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
         public ActionResult<SignResponse> Sign([FromBody] SignRequest signRequest)
