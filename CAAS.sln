@@ -7,8 +7,6 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAAS", "src\CAAS\CAAS.cspro
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CAAS.Tests", "tests\CAAS.Tests\CAAS.Tests.csproj", "{D0973543-701C-4053-B9F8-B50F3F4FC52B}"
 EndProject
-Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution Items", "{E7D897C3-F02B-48A6-B312-11A84FFFAB59}"
-EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU

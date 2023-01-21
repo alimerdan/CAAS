@@ -333,3 +333,5 @@ ASALocalRun/
 # Local History for Visual Studio
 .localhistory/
 /.pipedockerDesktopPluginDocker
+/tests/CAAS.Tests/coveragereport
+/tests/CAAS.Tests/CoverageHistory
