@@ -33,6 +33,7 @@
 
   <ItemGroup>
     <Folder Include="Models\Asymmetric\" />
+    <Folder Include="Models\Mac\Verify\" />
   </ItemGroup>
 
 

@@ -2,7 +2,7 @@
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
-
+using System;
 
 namespace CAAS.CryptoLib.Algorithms.Mac
 {
