@@ -1,5 +1,4 @@
-﻿using CAAS.Controllers;
-using CAAS.Models;
+﻿using CAAS.Models;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -7,7 +6,7 @@ using Moq;
 
 namespace CAAS.Tests.Controllers
 {
-    public class MainControllerTests
+    public class BaseControllerTests
     {
         [Fact]
         public void HealthTests()
@@ -58,7 +57,7 @@ namespace CAAS.Tests.Controllers
             Assert.NotNull(res.Result as OkObjectResult);
             HashSet<string>? responseObject = (res.Result as ObjectResult).Value as HashSet<string>;
             Assert.NotNull(responseObject);
-            Assert.Equal(responseObject,expectedResult);
+            Assert.Equal(responseObject, expectedResult);
 
         }
         [Fact]

@@ -1,11 +1,10 @@
-﻿using CAAS.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CAAS.Models.Hash
 {
     public static class HashSupportedAlgorithmsValues
     {
-        public readonly static HashSet<string> values = new HashSet<string>()
+        public static readonly HashSet<string> values = new HashSet<string>()
         {
             {"sha256" }
         };

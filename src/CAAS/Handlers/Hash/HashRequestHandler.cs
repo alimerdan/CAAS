@@ -13,14 +13,11 @@ namespace CAAS.Handlers.Hash
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            string digestedData = ProcessRequest(_hashRequest);
+            HashResponse res = ProcessRequest(_hashRequest);
             stopwatch.Stop();
 
-            return new HashResponse()
-            {
-                Digest = digestedData,
-                ProcessingTimeInMs = stopwatch.ElapsedMilliseconds
-            };
+            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            return res;
         }
         private static IHash GetProcessor(string algorithm)
         {
@@ -30,21 +27,17 @@ namespace CAAS.Handlers.Hash
                 _ => throw new NotSupportedAlgorithmException(algorithm),
             };
         }
-        private static byte[] FormatRequestData(string inputDataFormat, string data)
-        {
-            return Utils.TransformData(inputDataFormat, data);
-        }
-        private static string FormatResponseData(string outputDataFormat, byte[] data)
-        {
-            return Utils.TransformData(outputDataFormat, data);
-        }
-        private static string ProcessRequest(HashRequest req)
+
+        private static HashResponse ProcessRequest(HashRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
-            byte[] data = FormatRequestData(req.InputDataFormat, req.Data);
+            byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             IHash processor = GetProcessor(algorithm);
             byte[] digestedData = processor.Generate(data);
-            return FormatResponseData(req.OutputDataFormat, digestedData);
+            return new HashResponse()
+            {
+                Digest = Utils.TransformData(req.OutputDataFormat, digestedData)
+            };
         }
     }
 }

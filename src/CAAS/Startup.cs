@@ -21,8 +21,8 @@ namespace CAAS
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
-            services.AddControllers();
-            services.AddSwaggerGen(c =>
+            _ = services.AddControllers();
+            _ = services.AddSwaggerGen(c =>
             {
                 c.SwaggerDoc("v1", new OpenApiInfo { Title = "CAAS", Version = "v1", Contact = new OpenApiContact() { Name = "Ali MERDAN", Email = "a.merdan@nu.edu.eg" } });
                 c.DocumentFilter<SwaggerAddEnumDescriptions>();
@@ -34,20 +34,20 @@ namespace CAAS
         {
             if (env.IsDevelopment())
             {
-                app.UseDeveloperExceptionPage();
-                app.UseSwagger(c => c.SerializeAsV2 = true); ;
-                app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CAAS v1"));
+                _ = app.UseDeveloperExceptionPage();
+                _ = app.UseSwagger(c => c.SerializeAsV2 = true); ;
+                _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CAAS v1"));
             }
             //TODO: Enable if needed to host outside a cluster
             //app.UseHttpsRedirection();
 
-            app.UseRouting();
-            app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
-            app.UseAuthorization();
+            _ = app.UseRouting();
+            _ = app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
+            _ = app.UseAuthorization();
 
-            app.UseEndpoints(endpoints =>
+            _ = app.UseEndpoints(endpoints =>
             {
-                endpoints.MapControllers();
+                _ = endpoints.MapControllers();
             });
         }
     }

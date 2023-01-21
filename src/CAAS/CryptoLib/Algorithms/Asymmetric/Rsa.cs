@@ -17,19 +17,11 @@ namespace CAAS.CryptoLib.Algorithms.Asymmetric
         public Rsa() { }
         public byte[] Encrypt(byte[] plainData, byte[] keyDer, bool withPadding = true)
         {
-            if (withPadding)
-            {
-                return EncryptWithPadding(plainData, keyDer);
-            }
-            return Encrypt(plainData, keyDer);
+            return withPadding ? EncryptWithPadding(plainData, keyDer) : Encrypt(plainData, keyDer);
         }
         public byte[] Decrypt(byte[] cipheredData, byte[] keyDer, bool withPadding = true)
         {
-            if (withPadding)
-            {
-                return DecryptWithPadding(cipheredData, keyDer);
-            }
-            return Decrypt(cipheredData, keyDer);
+            return withPadding ? DecryptWithPadding(cipheredData, keyDer) : Decrypt(cipheredData, keyDer);
         }
 
         private byte[] Encrypt(byte[] plainData, byte[] keyDer)

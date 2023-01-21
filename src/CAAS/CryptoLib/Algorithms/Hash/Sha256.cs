@@ -18,7 +18,7 @@ namespace CAAS.CryptoLib.Algorithms.Hash
             Sha256Digest sha = new Sha256Digest();
             sha.BlockUpdate(inputHexByteArray, 0, inputHexByteArray.Length);
             byte[] hashedByteArray = new byte[sha.GetDigestSize()];
-            sha.DoFinal(hashedByteArray, 0);
+            _ = sha.DoFinal(hashedByteArray, 0);
             return hashedByteArray;
         }
     }

@@ -4,19 +4,14 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 using Moq;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CAAS.Tests.Controllers
 {
     public class HashControllerTests
     {
         [Theory]
-        [InlineData("sha256","0011223344556677","hex","hex", "D1A5F998FA6ED82DA6943127533B412F2286B30C8473A819F70A8FEC5913FEA7")]
-        public void DigestTests(string _algorithm,string _data, string _inputDataFormat, string _outputDataFormat, string _expectedResult)
+        [InlineData("sha256", "0011223344556677", "hex", "hex", "D1A5F998FA6ED82DA6943127533B412F2286B30C8473A819F70A8FEC5913FEA7")]
+        public void DigestTests(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat, string _expectedResult)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
             CAAS.Controllers.HashController controller = new(logger)

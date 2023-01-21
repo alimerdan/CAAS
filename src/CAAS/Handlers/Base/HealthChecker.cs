@@ -10,11 +10,19 @@ namespace CAAS.Handlers.Base
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            HealthCheckResponse res = new HealthCheckResponse(); ;
-            res.Status = "Iam Healthy";
+            HealthCheckResponse res = ProcessRequest(); ;
+
             stopwatch.Stop();
+
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
             return res;
+        }
+        private static HealthCheckResponse ProcessRequest()
+        {
+            return new HealthCheckResponse()
+            {
+                Status = "Iam Healthy"
+            };
         }
     }
 }
