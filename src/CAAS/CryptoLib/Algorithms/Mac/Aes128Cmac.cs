@@ -6,11 +6,8 @@ using System;
 
 namespace CAAS.CryptoLib.Algorithms.Mac
 {
-    ///<inheritdoc/>
     public class Aes128Cmac : IMac
     {
-
-        ///<inheritdoc/>
         public byte[] Generate(byte[] data, byte[] key)
         {
             try
@@ -27,7 +24,8 @@ namespace CAAS.CryptoLib.Algorithms.Mac
             }
             catch (Exception e)
             {
-                throw new Exception("Couldn't prefrom AES Sign due to error: '" + e.Message + "'"); ;
+                Exception exception = new Exception("Couldn't prefrom AES Sign Operation due to error: '" + e.Message + "'");
+                throw exception;
             }
         }
     }

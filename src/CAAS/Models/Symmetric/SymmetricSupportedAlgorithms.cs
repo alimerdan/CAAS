@@ -5,10 +5,12 @@ namespace CAAS.Models.Symmetric
 
     public static class SymmetricSupportedAlgorithmsValues
     {
-        public static readonly HashSet<string> values = new HashSet<string>()
+        private static readonly HashSet<string> values = new HashSet<string>()
         {
             {"aes_cbc_pkcs7" },{"aes_ecb_pkcs7"}
         };
+
+        public static HashSet<string> Values => values;
 
         public static SymmetricSupportedAlgorithms GetAlgorithm(string algorithmValue)
         {

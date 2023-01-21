@@ -8,14 +8,14 @@ using System.Diagnostics;
 
 namespace CAAS.Handlers.Symmetric
 {
-    public static class EncryptionRequestHandler
+    public static class SymmetricEncryptionRequestHandler
     {
-        public static EncryptionResponse Handle(EncryptionRequest _encRequest)
+        public static SymmetricEncryptionResponse Handle(SymmetricEncryptionRequest _encRequest)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            EncryptionResponse res = ProcessRequest(_encRequest);
+            SymmetricEncryptionResponse res = ProcessRequest(_encRequest);
 
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
@@ -32,14 +32,14 @@ namespace CAAS.Handlers.Symmetric
             };
         }
 
-        private static EncryptionResponse ProcessRequest(EncryptionRequest req)
+        private static SymmetricEncryptionResponse ProcessRequest(SymmetricEncryptionRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
             byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             byte[] key = Utils.TransformData(req.InputDataFormat, req.Key);
             ISymmetric processor = GetProcessor(algorithm);
             byte[] cipherData = processor.Encrypt(data, key);
-            return new EncryptionResponse()
+            return new SymmetricEncryptionResponse()
             {
                 CipherData = Utils.TransformData(req.OutputDataFormat, cipherData)
             };

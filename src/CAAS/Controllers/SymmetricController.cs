@@ -14,7 +14,6 @@ namespace CAAS.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/v1/[controller]")]
-    //[Route("api/v1/")]
     public class SymmetricController : ControllerBase
     {
         private readonly ILogger<SymmetricController> _logger;
@@ -28,15 +27,15 @@ namespace CAAS.Controllers
         [Consumes("application/json")]
         [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [DisableRequestSizeLimit]
-        [ProducesResponseType(typeof(EncryptionResponse), 200)]
+        [ProducesResponseType(typeof(SymmetricEncryptionResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public ActionResult<EncryptionResponse> Encrypt([FromBody] EncryptionRequest encRequest)
+        public ActionResult<SymmetricEncryptionResponse> Encrypt([FromBody] SymmetricEncryptionRequest encRequest)
         {
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                EncryptionResponse res = EncryptionRequestHandler.Handle(encRequest);
+                SymmetricEncryptionResponse res = SymmetricEncryptionRequestHandler.Handle(encRequest);
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
             }
@@ -47,24 +46,20 @@ namespace CAAS.Controllers
             }
         }
 
-        /// <summary>
-        /// Decrypt Data
-        /// </summary>
-        /// <param name="decRequest"></param>
-        /// <returns>Response Object</returns>
+
         [HttpPost("decrypt")]
         [Consumes("application/json")]
         [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
         [DisableRequestSizeLimit]
-        [ProducesResponseType(typeof(DecryptionResponse), 200)]
+        [ProducesResponseType(typeof(SymmetricDecryptionResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public ActionResult<DecryptionResponse> Decrypt([FromBody] DecryptionRequest decRequest)
+        public ActionResult<SymmetricDecryptionResponse> Decrypt([FromBody] SymmetricDecryptionRequest decRequest)
         {
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                DecryptionResponse res = DecryptionRequestHandler.Handle(decRequest);
+                SymmetricDecryptionResponse res = DecryptionRequestHandler.Handle(decRequest);
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
             }
@@ -83,8 +78,8 @@ namespace CAAS.Controllers
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                //_logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
-                return Ok(SymmetricSupportedAlgorithmsValues.values);
+                //TODO: Add processingtime in ms
+                return Ok(SymmetricSupportedAlgorithmsValues.Values);
             }
             catch (Exception ex)
             {

@@ -3,20 +3,13 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CAAS.Models.Symmetric.Decryption
 {
-    /// <summary>
-    /// Decryption Response Object
-    /// </summary>
-    public class DecryptionResponse
+    public class SymmetricDecryptionResponse
     {
-        /// <summary>
-        /// Decrypted/Plain Data in Hex Format
-        /// </summary>
+
         [Required]
         [DefaultValue("0011223344556677")]
         public string Data { get; set; }
-        /// <summary>
-        /// Request Processing Time in ms
-        /// </summary>
+
         [Required]
         [DefaultValue(11)]
         public long ProcessingTimeInMs { get; set; }

@@ -51,8 +51,8 @@ namespace CAAS.Controllers
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                //_logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
-                return Ok(HashSupportedAlgorithmsValues.values);
+                //TODO: Add processingtime in ms
+                return Ok(HashSupportedAlgorithmsValues.Values);
             }
             catch (Exception ex)
             {

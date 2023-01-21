@@ -10,12 +10,12 @@ namespace CAAS.Handlers.Symmetric
 {
     public static class DecryptionRequestHandler
     {
-        public static DecryptionResponse Handle(DecryptionRequest _decRequest)
+        public static SymmetricDecryptionResponse Handle(SymmetricDecryptionRequest _decRequest)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            DecryptionResponse res = ProcessRequest(_decRequest);
+            SymmetricDecryptionResponse res = ProcessRequest(_decRequest);
 
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
@@ -31,14 +31,14 @@ namespace CAAS.Handlers.Symmetric
             };
         }
 
-        private static DecryptionResponse ProcessRequest(DecryptionRequest req)
+        private static SymmetricDecryptionResponse ProcessRequest(SymmetricDecryptionRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
             byte[] data = Utils.TransformData(req.InputDataFormat, req.CipherData);
             byte[] key = Utils.TransformData(req.InputDataFormat, req.Key);
             ISymmetric processor = GetProcessor(algorithm);
             byte[] cipherData = processor.Decrypt(data, key);
-            return new DecryptionResponse()
+            return new SymmetricDecryptionResponse()
             {
                 Data = Utils.TransformData(req.OutputDataFormat, cipherData)
             };
