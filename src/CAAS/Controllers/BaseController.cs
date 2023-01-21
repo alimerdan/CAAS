@@ -1,4 +1,4 @@
-using CAAS.Handlers;
+using CAAS.Handlers.Base;
 using CAAS.Models;
 using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
@@ -12,11 +12,11 @@ namespace CAAS.Controllers
     [ApiController]
     [Produces("application/json")]
     [Route("api/v1")]
-    public class Controller : ControllerBase
+    public class BaseController : ControllerBase
     {
-        private readonly ILogger<Controller> _logger;
+        private readonly ILogger<BaseController> _logger;
 
-        public Controller(ILogger<Controller> logger)
+        public BaseController(ILogger<BaseController> logger)
         {
             _logger = logger;
         }

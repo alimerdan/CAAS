@@ -1,7 +1,7 @@
 ﻿using CAAS.Models;
 using System.Diagnostics;
 
-namespace CAAS.Handlers
+namespace CAAS.Handlers.Base
 {
     public static class HealthChecker
     {

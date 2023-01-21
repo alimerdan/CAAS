@@ -12,8 +12,8 @@ namespace CAAS.Tests.Controllers
         [Fact]
         public void HealthTests()
         {
-            var logger = Mock.Of<ILogger<CAAS.Controllers.Controller>>();
-            CAAS.Controllers.Controller controller = new(logger)
+            var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
+            CAAS.Controllers.BaseController controller = new(logger)
             {
                 ControllerContext = new ControllerContext()
             };
@@ -30,8 +30,8 @@ namespace CAAS.Tests.Controllers
         [Fact]
         public void InvalidHealthTests()
         {
-            var logger = Mock.Of<ILogger<CAAS.Controllers.Controller>>();
-            CAAS.Controllers.Controller controller = new(logger)
+            var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
+            CAAS.Controllers.BaseController controller = new(logger)
             {
                 ControllerContext = new ControllerContext()
             };
@@ -47,8 +47,8 @@ namespace CAAS.Tests.Controllers
         {
             {"hex" },{"base64" },{"ascii" },{"utf8"}
         };
-            var logger = Mock.Of<ILogger<CAAS.Controllers.Controller>>();
-            CAAS.Controllers.Controller controller = new(logger)
+            var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
+            CAAS.Controllers.BaseController controller = new(logger)
             {
                 ControllerContext = new ControllerContext()
             };
@@ -65,8 +65,8 @@ namespace CAAS.Tests.Controllers
         public void InvalidDataFormatsTests()
         {
 
-            var logger = Mock.Of<ILogger<CAAS.Controllers.Controller>>();
-            CAAS.Controllers.Controller controller = new(logger)
+            var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
+            CAAS.Controllers.BaseController controller = new(logger)
             {
                 ControllerContext = new ControllerContext()
             };

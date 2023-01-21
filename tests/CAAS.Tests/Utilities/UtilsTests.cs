@@ -136,7 +136,7 @@ namespace CAAS.Tests.Utilities
             Assert.StartsWith("Provided data format is not supported.", ex.Message);
 
             string s;
-            Exception ex2 = Assert.Throws<NotSupportedDataFormatException>(() => s = Utils.TransformData(invalidDataFormat, new byte[0]));
+            Exception ex2 = Assert.Throws<NotSupportedDataFormatException>(() => s = Utils.TransformData(invalidDataFormat, Array.Empty<byte>()));
             Assert.StartsWith("Provided data format is not supported.", ex.Message);
 
         }
