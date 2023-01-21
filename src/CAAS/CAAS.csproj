@@ -9,6 +9,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Handlers\Asymmetric\**" />
+    <Content Remove="Handlers\Asymmetric\**" />
+    <EmbeddedResource Remove="Handlers\Asymmetric\**" />
+    <None Remove="Handlers\Asymmetric\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="caas-service.yaml" />
   </ItemGroup>
 
@@ -25,7 +32,6 @@
 
 
   <ItemGroup>
-    <Folder Include="Handlers\Asymmetric\" />
     <Folder Include="Models\Asymmetric\" />
   </ItemGroup>
 
