@@ -24,7 +24,7 @@ namespace CAAS.CryptoLib.Algorithms.Mac
             byte[] result = new byte[hmac.GetMacSize()];
 
             hmac.BlockUpdate(data, 0, data.Length);
-            hmac.DoFinal(result, 0);
+            _ = hmac.DoFinal(result, 0);
 
             return result;
         }

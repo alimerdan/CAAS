@@ -14,21 +14,34 @@ namespace CAAS.Handlers.Symmetric
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-            string algorithm = _decRequest.Algorithm.ToString().Trim().ToLower();
-            byte[] key = Utils.TransformData(_decRequest.InputDataFormat, _decRequest.Key);
-            byte[] cipherData = Utils.TransformData(_decRequest.InputDataFormat, _decRequest.CipherData);
-            DecryptionResponse res = new DecryptionResponse();
-            ISymmetric processor = SymmetricSupportedAlgorithmsValues.GetAlgorithm(_decRequest.Algorithm) switch
+
+            DecryptionResponse res = ProcessRequest(_decRequest);
+
+            stopwatch.Stop();
+            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            return res;
+        }
+        private static ISymmetric GetProcessor(string algorithm)
+        {
+            return SymmetricSupportedAlgorithmsValues.GetAlgorithm(algorithm) switch
             {
                 SymmetricSupportedAlgorithms.aes_ecb_pkcs7 => new AesEcb(),
                 SymmetricSupportedAlgorithms.aes_cbc_pkcs7 => new AesCbc(),
                 _ => throw new NotSupportedAlgorithmException(algorithm),
             };
-            byte[] plainData = processor.Decrypt(cipherData, key);
-            res.Data = Utils.TransformData(_decRequest.OutputDataFormat, plainData);
-            stopwatch.Stop();
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
-            return res;
+        }
+
+        private static DecryptionResponse ProcessRequest(DecryptionRequest req)
+        {
+            string algorithm = req.Algorithm.ToString().Trim().ToLower();
+            byte[] data = Utils.TransformData(req.InputDataFormat, req.CipherData);
+            byte[] key = Utils.TransformData(req.InputDataFormat, req.Key);
+            ISymmetric processor = GetProcessor(algorithm);
+            byte[] cipherData = processor.Decrypt(data, key);
+            return new DecryptionResponse()
+            {
+                Data = Utils.TransformData(req.OutputDataFormat, cipherData)
+            };
         }
     }
 }

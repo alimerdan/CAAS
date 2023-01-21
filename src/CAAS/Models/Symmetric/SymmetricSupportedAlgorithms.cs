@@ -1,12 +1,11 @@
-﻿using CAAS.Exceptions;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 
 namespace CAAS.Models.Symmetric
 {
 
     public static class SymmetricSupportedAlgorithmsValues
     {
-        public readonly static HashSet<string> values = new HashSet<string>()
+        public static readonly HashSet<string> values = new HashSet<string>()
         {
             {"aes_cbc_pkcs7" },{"aes_ecb_pkcs7"}
         };

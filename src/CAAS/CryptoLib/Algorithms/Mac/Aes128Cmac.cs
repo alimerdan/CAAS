@@ -18,7 +18,7 @@ namespace CAAS.CryptoLib.Algorithms.Mac
             cmac.Init(keyParam);
             cmac.BlockUpdate(data, 0, data.Length);
             byte[] outBytes = new byte[16];
-            cmac.DoFinal(outBytes, 0);
+            _ = cmac.DoFinal(outBytes, 0);
 
             return outBytes;
         }
