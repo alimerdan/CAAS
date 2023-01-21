@@ -2,20 +2,20 @@
 using CAAS.CryptoLib.Interfaces;
 using CAAS.Exceptions;
 using CAAS.Models.Mac;
-using CAAS.Models.Mac.Sign;
+using CAAS.Models.Mac.Verify;
 using CAAS.Utilities;
 using System.Diagnostics;
 
 namespace CAAS.Handlers.Mac
 {
-    public static class SignRequestHandler
+    public static class VerifyRequestHandler
     {
-        public static SignResponse Handle(SignRequest _signRequest)
+        public static VerifyResponse Handle(VerifyRequest _verifyRequest)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            SignResponse res = ProcessRequest(_signRequest);
+            VerifyResponse res = ProcessRequest(_verifyRequest);
 
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
@@ -32,16 +32,17 @@ namespace CAAS.Handlers.Mac
             };
         }
 
-        private static SignResponse ProcessRequest(SignRequest req)
+        private static VerifyResponse ProcessRequest(VerifyRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
             byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             byte[] key = Utils.TransformData(req.InputDataFormat, req.Key);
+            byte[] signature = Utils.TransformData(req.InputDataFormat, req.Signature);
             IMac processor = GetProcessor(algorithm);
-            byte[] cipherData = processor.Generate(data, key);
-            return new SignResponse()
+            bool isVerified = processor.Verify(data, key, signature);
+            return new VerifyResponse()
             {
-                Mac = Utils.TransformData(req.OutputDataFormat, cipherData)
+                IsVerified = isVerified
             };
         }
     }

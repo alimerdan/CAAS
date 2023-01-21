@@ -1,9 +1,9 @@
-using System.ComponentModel;
+﻿using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CAAS.Models.Mac.Sign
+namespace CAAS.Models.Mac.Verify
 {
-    public class SignRequest
+    public class VerifyRequest
     {
 
         [Required]
@@ -18,14 +18,14 @@ namespace CAAS.Models.Mac.Sign
         [DefaultValue("00112233445566770011223344556677")]
         public string Key { get; set; }
 
+        [Required]
+        [DefaultValue("F8409911928AEBF52A0C3A88AABE16A6")]
+        public string Signature { get; set; }
+
 
         [Required]
         [DefaultValue("hex")]
         public string InputDataFormat { get; set; }
 
-
-        [Required]
-        [DefaultValue("hex")]
-        public string OutputDataFormat { get; set; }
     }
 }

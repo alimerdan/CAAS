@@ -34,7 +34,7 @@ namespace CAAS.Tests.Controllers
             Assert.NotNull(res.Result as OkObjectResult);
             RngResponse? responseObject = (res.Result as ObjectResult).Value as RngResponse;
             Assert.NotNull(responseObject);
-            Assert.True(responseObject.Rng.Length/2 == _size);
+            Assert.True(responseObject.Rng.Length / 2 == _size);
             Assert.True(responseObject.ProcessingTimeInMs >= 0);
 
         }
