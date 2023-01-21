@@ -14,7 +14,7 @@ namespace CAAS.Handlers.Symmetric
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-
+            string algorithm = _decRequest.Algorithm.ToString().Trim().ToLower();
             byte[] key = Utils.TransformData(_decRequest.InputDataFormat, _decRequest.Key);
             byte[] cipherData = Utils.TransformData(_decRequest.InputDataFormat, _decRequest.CipherData);
             DecryptionResponse res = new DecryptionResponse();
@@ -22,12 +22,12 @@ namespace CAAS.Handlers.Symmetric
             {
                 SymmetricSupportedAlgorithms.aes_ecb_pkcs7 => new AesEcb(),
                 SymmetricSupportedAlgorithms.aes_cbc_pkcs7 => new AesCbc(),
-                _ => throw new NotSupportedAlgorithmException(_decRequest.Algorithm.ToString().Trim().ToLower()),
+                _ => throw new NotSupportedAlgorithmException(algorithm),
             };
             byte[] plainData = processor.Decrypt(cipherData, key);
             res.Data = Utils.TransformData(_decRequest.OutputDataFormat, plainData);
             stopwatch.Stop();
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds.ToString();
+            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
             return res;
         }
     }

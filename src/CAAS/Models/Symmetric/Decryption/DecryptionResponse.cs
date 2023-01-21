@@ -18,7 +18,7 @@ namespace CAAS.Models.Symmetric.Decryption
         /// Request Processing Time in ms
         /// </summary>
         [Required]
-        [DefaultValue("11 ms")]
-        public string ProcessingTimeInMs { get; set; }
+        [DefaultValue(11)]
+        public long ProcessingTimeInMs { get; set; }
     }
 }
