@@ -1,5 +1,6 @@
 using CAAS.Handlers.Base;
 using CAAS.Models;
+using CAAS.Models.Base;
 using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -48,7 +49,7 @@ namespace CAAS.Controllers
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
                 //TODO: Add processingtime in ms
-                return Ok(DataFormatValues.values);
+                return Ok(DataFormatValues.Values);
             }
             catch (Exception ex)
             {

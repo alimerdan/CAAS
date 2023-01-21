@@ -21,7 +21,7 @@ namespace CAAS.Tests.Controllers
                 ControllerContext = new ControllerContext()
             };
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            EncryptionRequest req = new()
+            SymmetricEncryptionRequest req = new()
             {
                 Algorithm = _algorithm,
                 Data = _data,
@@ -30,10 +30,10 @@ namespace CAAS.Tests.Controllers
                 OutputDataFormat = _outputDataFormat
 
             };
-            ActionResult<EncryptionResponse> res = controller.Encrypt(req);
+            ActionResult<SymmetricEncryptionResponse> res = controller.Encrypt(req);
             Assert.NotNull(res);
             Assert.NotNull(res.Result as OkObjectResult);
-            EncryptionResponse? responseObject = (res.Result as ObjectResult).Value as EncryptionResponse;
+            SymmetricEncryptionResponse? responseObject = (res.Result as ObjectResult).Value as SymmetricEncryptionResponse;
             Assert.NotNull(responseObject);
             Assert.Equal(_expectedResult, responseObject.CipherData);
             Assert.True(responseObject.ProcessingTimeInMs >= 0);
@@ -54,7 +54,7 @@ namespace CAAS.Tests.Controllers
                 ControllerContext = new ControllerContext()
             };
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            EncryptionRequest req = new()
+            SymmetricEncryptionRequest req = new()
             {
                 Algorithm = _algorithm,
                 Data = _data,
@@ -63,7 +63,7 @@ namespace CAAS.Tests.Controllers
                 OutputDataFormat = _outputDataFormat
 
             };
-            ActionResult<EncryptionResponse> res = controller.Encrypt(req);
+            ActionResult<SymmetricEncryptionResponse> res = controller.Encrypt(req);
             Assert.NotNull(res);
             Assert.NotNull(res.Result as BadRequestObjectResult);
             ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
@@ -83,7 +83,7 @@ namespace CAAS.Tests.Controllers
                 ControllerContext = new ControllerContext()
             };
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            DecryptionRequest req = new()
+            SymmetricDecryptionRequest req = new()
             {
                 Algorithm = _algorithm,
                 CipherData = _cipherData,
@@ -92,10 +92,10 @@ namespace CAAS.Tests.Controllers
                 OutputDataFormat = _outputDataFormat
 
             };
-            ActionResult<DecryptionResponse> res = controller.Decrypt(req);
+            ActionResult<SymmetricDecryptionResponse> res = controller.Decrypt(req);
             Assert.NotNull(res);
             Assert.NotNull(res.Result as OkObjectResult);
-            DecryptionResponse? responseObject = (res.Result as ObjectResult).Value as DecryptionResponse;
+            SymmetricDecryptionResponse? responseObject = (res.Result as ObjectResult).Value as SymmetricDecryptionResponse;
             Assert.NotNull(responseObject);
             Assert.Equal(_expectedResult, responseObject.Data);
             Assert.True(responseObject.ProcessingTimeInMs >= 0);
@@ -116,7 +116,7 @@ namespace CAAS.Tests.Controllers
                 ControllerContext = new ControllerContext()
             };
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            DecryptionRequest req = new()
+            SymmetricDecryptionRequest req = new()
             {
                 Algorithm = _algorithm,
                 CipherData = _cipherData,
@@ -125,7 +125,7 @@ namespace CAAS.Tests.Controllers
                 OutputDataFormat = _outputDataFormat
 
             };
-            ActionResult<DecryptionResponse> res = controller.Decrypt(req);
+            ActionResult<SymmetricDecryptionResponse> res = controller.Decrypt(req);
             Assert.NotNull(res);
             Assert.NotNull(res.Result as BadRequestObjectResult);
             ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;

@@ -3,20 +3,14 @@ using System.ComponentModel.DataAnnotations;
 
 namespace CAAS.Models.Symmetric.Encryption
 {
-    /// <summary>
-    /// Encryption Response Object
-    /// </summary>
-    public class EncryptionResponse
+
+    public class SymmetricEncryptionResponse
     {
-        /// <summary>
-        /// Encrypted/Ciphered Data in Hex Format
-        /// </summary>
+
         [Required]
         [DefaultValue("C656C652E6656125139C219FD9F6EABB")]
         public string CipherData { get; set; }
-        /// <summary>
-        /// Request Processing Time in ms
-        /// </summary>
+
         [Required]
         [DefaultValue(11)]
         public long ProcessingTimeInMs { get; set; }

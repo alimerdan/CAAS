@@ -4,7 +4,7 @@ namespace CAAS.Models.Hash
 {
     public static class HashSupportedAlgorithmsValues
     {
-        public static readonly HashSet<string> values = new HashSet<string>()
+        public static HashSet<string> Values { get; } = new HashSet<string>()
         {
             {"sha256" }
         };

@@ -4,7 +4,7 @@ namespace CAAS.Models.Rng
 {
     public static class RngSupportedAlgorithmsValues
     {
-        public static readonly HashSet<string> values = new HashSet<string>()
+        public static HashSet<string> Values { get; } = new HashSet<string>()
         {
             {"csprng" }
         };

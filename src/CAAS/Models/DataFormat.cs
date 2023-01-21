@@ -4,7 +4,7 @@ namespace CAAS.Models
 {
     public static class DataFormatValues
     {
-        public static readonly HashSet<string> values = new HashSet<string>()
+        public static HashSet<string> Values { get; } = new HashSet<string>()
         {
             {"hex" },{"base64" },{"ascii" },{"utf8"}
         };

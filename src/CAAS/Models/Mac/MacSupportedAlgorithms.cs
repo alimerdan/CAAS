@@ -5,7 +5,7 @@ namespace CAAS.Models.Mac
 
     public static class MacSupportedAlgorithmsValues
     {
-        public static readonly HashSet<string> values = new HashSet<string>()
+        public static HashSet<string> Values { get; } = new HashSet<string>()
         {
             {"aes128_cmac" },{"sha256_hmac"}
         };

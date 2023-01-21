@@ -1,4 +1,4 @@
-﻿using CAAS.Models;
+﻿using CAAS.Models.Base;
 using System.Diagnostics;
 
 namespace CAAS.Handlers.Base
@@ -10,7 +10,7 @@ namespace CAAS.Handlers.Base
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            HealthCheckResponse res = ProcessRequest(); ;
+            HealthCheckResponse res = ProcessRequest();
 
             stopwatch.Stop();
 

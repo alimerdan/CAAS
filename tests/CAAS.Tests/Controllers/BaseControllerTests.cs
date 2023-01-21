@@ -1,4 +1,4 @@
-﻿using CAAS.Models;
+﻿using CAAS.Models.Base;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
