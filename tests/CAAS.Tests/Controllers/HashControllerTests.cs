@@ -82,7 +82,7 @@ namespace CAAS.Tests.Controllers
                 ControllerContext = new ControllerContext()
             };
             controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            ActionResult<HashSet<string>> res = controller.GetHashAlgorithms();
+            ActionResult<HashSet<string>> res = controller.GetSupportedAlgorithms();
             Assert.NotNull(res);
             Assert.NotNull(res.Result as OkObjectResult);
             HashSet<string>? responseObject = (res.Result as ObjectResult).Value as HashSet<string>;
@@ -100,7 +100,7 @@ namespace CAAS.Tests.Controllers
             {
                 ControllerContext = new ControllerContext()
             };
-            ActionResult<HashSet<string>> res = controller.GetHashAlgorithms();
+            ActionResult<HashSet<string>> res = controller.GetSupportedAlgorithms();
             Assert.NotNull(res);
             Assert.NotNull(res.Result as BadRequestObjectResult);
 

@@ -46,7 +46,7 @@ namespace CAAS.Controllers
         [HttpGet("algorithms")]
         [ProducesResponseType(typeof(HashSet<string>), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public ActionResult<HashSet<string>> GetHashAlgorithms()
+        public ActionResult<HashSet<string>> GetSupportedAlgorithms()
         {
             try
             {
