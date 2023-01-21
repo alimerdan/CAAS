@@ -3,6 +3,7 @@ using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
 using System;
+using System.Linq;
 
 namespace CAAS.CryptoLib.Algorithms.Mac
 {
@@ -18,6 +19,11 @@ namespace CAAS.CryptoLib.Algorithms.Mac
             _ = hmac.DoFinal(result, 0);
 
             return result;
+        }
+
+        public bool Verify(byte[] data, byte[] key, byte[] signature)
+        {
+            return signature.SequenceEqual(Generate(data, key));
         }
     }
 }

@@ -1,6 +1,7 @@
 ﻿using CAAS.Handlers.Mac;
 using CAAS.Models.Mac;
 using CAAS.Models.Mac.Sign;
+using CAAS.Models.Mac.Verify;
 using CAAS.Utilities;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
@@ -44,6 +45,28 @@ namespace CAAS.Controllers
             }
         }
 
+        [HttpPost("verify")]
+        [Consumes("application/json")]
+        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
+        [DisableRequestSizeLimit]
+        [ProducesResponseType(typeof(VerifyResponse), 200)]
+        [ProducesResponseType(typeof(ErrorResponse), 400)]
+        [ProducesResponseType(typeof(ErrorResponse), 500)]
+        public ActionResult<VerifyResponse> Verify([FromBody] VerifyRequest verifyRequest)
+        {
+            try
+            {
+                _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
+                VerifyResponse res = VerifyRequestHandler.Handle(verifyRequest);
+                _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
+                return Ok(res);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"{Utils.GetNow()} \t-\t Request.Path \t-\t {ex.Message}");
+                return BadRequest(new ErrorResponse(ex));
+            }
+        }
 
         [HttpGet("algorithms")]
         [ProducesResponseType(typeof(HashSet<string>), 200)]
