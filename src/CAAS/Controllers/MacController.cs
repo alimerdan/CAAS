@@ -24,8 +24,6 @@ namespace CAAS.Controllers
 
         [HttpPost("sign")]
         [Consumes("application/json")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(SignResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
@@ -47,8 +45,6 @@ namespace CAAS.Controllers
 
         [HttpPost("verify")]
         [Consumes("application/json")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(VerifyResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]

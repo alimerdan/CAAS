@@ -25,8 +25,6 @@ namespace CAAS.Controllers
 
         [HttpPost("encrypt")]
         [Consumes("application/json")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(SymmetricEncryptionResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
@@ -49,8 +47,6 @@ namespace CAAS.Controllers
 
         [HttpPost("decrypt")]
         [Consumes("application/json")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(SymmetricDecryptionResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]

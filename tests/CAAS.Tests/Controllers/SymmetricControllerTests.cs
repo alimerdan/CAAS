@@ -1,4 +1,5 @@
-﻿using CAAS.Exceptions;
+﻿using CAAS.CryptoLib.Exceptions;
+using CAAS.Exceptions;
 using CAAS.Models.Symmetric.Decryption;
 using CAAS.Models.Symmetric.Encryption;
 using Microsoft.AspNetCore.Http;
@@ -41,8 +42,8 @@ namespace CAAS.Tests.Controllers
         }
 
         [Theory]
-        [InlineData("aes_cbc_pkcs7", "0011223344556677", "0011223344556677", "hex", "hex", typeof(Exception))]
-        [InlineData("aes_ecb_pkcs7", "0011223344556677", "0011223344556677", "hex", "hex", typeof(Exception))]
+        [InlineData("aes_cbc_pkcs7", "0011223344556677", "0011223344556677", "hex", "hex", typeof(CaaSCryptoException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "0011223344556677", "hex", "hex", typeof(CaaSCryptoException))]
         [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "xxxx", "hex", typeof(NotSupportedDataFormatException))]
         [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "xxxx", typeof(NotSupportedDataFormatException))]
         [InlineData("xxxx", "0011223344556677", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
@@ -103,8 +104,8 @@ namespace CAAS.Tests.Controllers
         }
 
         [Theory]
-        [InlineData("aes_cbc_pkcs7", "C656C652E6656125139C219FD9F6EABB", "0011223344556677", "hex", "hex", typeof(Exception))]
-        [InlineData("aes_ecb_pkcs7", "C656C652E6656125139C219FD9F6EABB", "0011223344556677", "hex", "hex", typeof(Exception))]
+        [InlineData("aes_cbc_pkcs7", "C656C652E6656125139C219FD9F6EABB", "0011223344556677", "hex", "hex", typeof(CaaSCryptoException))]
+        [InlineData("aes_ecb_pkcs7", "C656C652E6656125139C219FD9F6EABB", "0011223344556677", "hex", "hex", typeof(CaaSCryptoException))]
         [InlineData("aes_cbc_pkcs7", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "xxxx", typeof(NotSupportedDataFormatException))]
         [InlineData("aes_cbc_pkcs7", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "xxxx", "hex", typeof(NotSupportedDataFormatException))]
         [InlineData("xxxx", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]

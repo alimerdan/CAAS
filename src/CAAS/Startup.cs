@@ -35,7 +35,7 @@ namespace CAAS
             if (env.IsDevelopment())
             {
                 _ = app.UseDeveloperExceptionPage();
-                _ = app.UseSwagger(c => c.SerializeAsV2 = true); ;
+                _ = app.UseSwagger(c => c.SerializeAsV2 = true);
                 _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CAAS v1"));
             }
             //TODO: Enable if needed to host outside a cluster
