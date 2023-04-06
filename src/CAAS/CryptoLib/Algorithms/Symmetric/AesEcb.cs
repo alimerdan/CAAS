@@ -1,4 +1,5 @@
-﻿using CAAS.CryptoLib.Interfaces;
+﻿using CAAS.CryptoLib.Exceptions;
+using CAAS.CryptoLib.Interfaces;
 using System;
 using System.Security.Cryptography;
 
@@ -18,7 +19,7 @@ namespace CAAS.CryptoLib.Algorithms.Symmetric
             }
             catch (Exception e)
             {
-                throw new Exception("Couldn't prefrom AES encryption due to error: '" + e.Message + "'");
+                throw new CaaSCryptoException("Couldn't prefrom AES encryption due to error: '" + e.Message + "'");
             }
         }
 
@@ -33,7 +34,7 @@ namespace CAAS.CryptoLib.Algorithms.Symmetric
             }
             catch (Exception e)
             {
-                throw new Exception("Couldn't prefrom AES encryption due to error: '" + e.Message + "'");
+                throw new CaaSCryptoException("Couldn't prefrom AES encryption due to error: '" + e.Message + "'");
             }
         }
 

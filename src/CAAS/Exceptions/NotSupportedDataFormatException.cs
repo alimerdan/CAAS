@@ -1,7 +1,9 @@
 ﻿using System;
+using System.Runtime.Serialization;
 
 namespace CAAS.Exceptions
 {
+    [Serializable]
     public class NotSupportedDataFormatException : Exception
     {
 
@@ -9,5 +11,6 @@ namespace CAAS.Exceptions
         {
 
         }
+        protected NotSupportedDataFormatException(SerializationInfo info, StreamingContext context) : base(info, context) { }
     }
 }

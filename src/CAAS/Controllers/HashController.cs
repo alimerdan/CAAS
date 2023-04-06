@@ -22,8 +22,6 @@ namespace CAAS.Controllers
 
         [HttpPost("digest")]
         [Consumes("application/json")]
-        [RequestFormLimits(ValueLengthLimit = int.MaxValue, MultipartBodyLengthLimit = int.MaxValue)]
-        [DisableRequestSizeLimit]
         [ProducesResponseType(typeof(HashResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
