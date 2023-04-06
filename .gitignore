@@ -335,3 +335,4 @@ ASALocalRun/
 /.pipedockerDesktopPluginDocker
 /tests/CAAS.Tests/coveragereport
 /tests/CAAS.Tests/CoverageHistory
+/.sonarqube
