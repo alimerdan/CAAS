@@ -11,6 +11,13 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove=".github\**" />
+    <Content Remove=".github\**" />
+    <EmbeddedResource Remove=".github\**" />
+    <None Remove=".github\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <None Remove="caas-service.yaml" />
   </ItemGroup>
 
@@ -28,7 +35,6 @@
 
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
-    <None Include=".github\workflows\github-actions-demp.yaml" />
   </ItemGroup>
 
 
