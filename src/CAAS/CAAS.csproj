@@ -28,6 +28,7 @@
 
   <ItemGroup>
     <None Include="..\..\.editorconfig" Link=".editorconfig" />
+    <None Include=".github\workflows\github-actions-demp.yaml" />
   </ItemGroup>
 
 
