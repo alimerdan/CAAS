@@ -14,7 +14,7 @@ namespace CAAS.Handlers.Base
 
             stopwatch.Stop();
 
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
         private static HealthCheckResponse ProcessRequest()
