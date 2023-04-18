@@ -15,7 +15,7 @@ namespace CAAS.Handlers.Rng
             RngResponse res = ProcessRequest(_rngRequest);
             stopwatch.Stop();
 
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
         private static IRng GetProcessor(string algorithm)

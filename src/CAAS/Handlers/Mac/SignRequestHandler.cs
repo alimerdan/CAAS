@@ -18,7 +18,7 @@ namespace CAAS.Handlers.Mac
             SignResponse res = ProcessRequest(_signRequest);
 
             stopwatch.Stop();
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
 

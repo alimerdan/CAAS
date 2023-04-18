@@ -18,7 +18,7 @@ namespace CAAS.Handlers.Symmetric
             SymmetricDecryptionResponse res = ProcessRequest(_decRequest);
 
             stopwatch.Stop();
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
         private static ISymmetric GetProcessor(string algorithm)

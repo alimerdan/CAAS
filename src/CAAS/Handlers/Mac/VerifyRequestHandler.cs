@@ -18,7 +18,7 @@ namespace CAAS.Handlers.Mac
             VerifyResponse res = ProcessRequest(_verifyRequest);
 
             stopwatch.Stop();
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
 

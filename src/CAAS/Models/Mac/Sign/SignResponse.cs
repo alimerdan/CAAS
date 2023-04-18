@@ -13,6 +13,6 @@ namespace CAAS.Models.Mac.Sign
 
         [Required]
         [DefaultValue(11)]
-        public long ProcessingTimeInMs { get; set; }
+        public double ProcessingTimeInMs { get; set; }
     }
 }

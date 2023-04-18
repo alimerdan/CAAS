@@ -13,6 +13,6 @@ namespace CAAS.Models.Base
 
         [Required]
         [DefaultValue(11)]
-        public long ProcessingTimeInMs { get; set; }
+        public double ProcessingTimeInMs { get; set; }
     }
 }

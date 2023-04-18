@@ -18,7 +18,7 @@ namespace CAAS.Handlers.Symmetric
             SymmetricEncryptionResponse res = ProcessRequest(_encRequest);
 
             stopwatch.Stop();
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
 

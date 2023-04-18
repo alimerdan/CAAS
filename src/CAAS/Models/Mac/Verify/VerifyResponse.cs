@@ -11,6 +11,6 @@ namespace CAAS.Models.Mac.Verify
 
         [Required]
         [DefaultValue(11)]
-        public long ProcessingTimeInMs { get; set; }
+        public double ProcessingTimeInMs { get; set; }
     }
 }

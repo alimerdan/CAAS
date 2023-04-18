@@ -16,7 +16,7 @@ namespace CAAS.Handlers.Hash
             HashResponse res = ProcessRequest(_hashRequest);
             stopwatch.Stop();
 
-            res.ProcessingTimeInMs = stopwatch.ElapsedMilliseconds;
+            res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
         }
         private static IHash GetProcessor(string algorithm)

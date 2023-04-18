@@ -39,7 +39,7 @@ namespace CAAS
                 _ = app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "CAAS v1"));
             }
             //TODO: Enable if needed to host outside a cluster
-            //app.UseHttpsRedirection();
+            //_ = app.UseHttpsRedirection();
 
             _ = app.UseRouting();
             _ = app.UseCors(x => x.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod());
