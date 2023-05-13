@@ -12,7 +12,7 @@ namespace CAAS.Tests.Controllers
     {
         [Theory]
         [InlineData("sha256", "0011223344556677", "hex", "hex")]
-        [Description("Test Digest API resturns a valid HTTP response")]
+        [Description("Test Digest API returns a valid HTTP response")]
         public void TestDigestIsValidHTTPResonse(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
@@ -36,7 +36,7 @@ namespace CAAS.Tests.Controllers
 
         [Theory]
         [InlineData("sha256", "0011223344556677", "hex", "hex")]
-        [Description("Test Digest API resturns valid structure")]
+        [Description("Test Digest API returns valid structure")]
         public void TestDigestAPIResponseStructure(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
@@ -61,7 +61,7 @@ namespace CAAS.Tests.Controllers
 
         [Theory]
         [InlineData("sha256", "0011223344556677", "hex", "hex", "D1A5F998FA6ED82DA6943127533B412F2286B30C8473A819F70A8FEC5913FEA7")]
-        [Description("Test Digest API resturns valid value")]
+        [Description("Test Digest API returns valid value")]
         public void TestDigestAPIResponseValue(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat, string _expectedResult)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
@@ -87,7 +87,7 @@ namespace CAAS.Tests.Controllers
 
         [Theory]
         [InlineData("sha256", "0011223344556677", "byx", "hex")]
-        [Description("Test Digest API resturns BadRequest Response")]
+        [Description("Test Digest API returns BadRequest Response")]
         public void TestInvalidDigestBadRequestResponse(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
@@ -116,7 +116,7 @@ namespace CAAS.Tests.Controllers
         [InlineData("sha256", "0011223344556677", "hex", "", typeof(NotSupportedDataFormatException))]
         [InlineData("sha256", "0011223344556677", "aaa", "bbb", typeof(NotSupportedDataFormatException))]
         [InlineData("sha256", "0011223344556677", "", "", typeof(NotSupportedDataFormatException))]
-        [Description("Test Digest API resturns NotSupportedDataFormat Response")]
+        [Description("Test Digest API returns NotSupportedDataFormat Response")]
         public void TestInvalidDigestNotSupportedDataFormatExceptionResponse(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
@@ -144,7 +144,7 @@ namespace CAAS.Tests.Controllers
         [InlineData("sha11256", "0011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("zzz", "0011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("", "0011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
-        [Description("Test Digest API resturns NotSupportedAlgorithm Response")]
+        [Description("Test Digest API returns NotSupportedAlgorithm Response")]
         public void TestInvalidDigestNotSupportedAlgorithmExceptionResponse(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();

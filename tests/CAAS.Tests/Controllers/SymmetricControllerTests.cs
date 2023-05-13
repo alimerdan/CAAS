@@ -16,7 +16,7 @@ namespace CAAS.Tests.Controllers
         [Theory]
         [InlineData("aes_cbc_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "hex")]
         [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "hex")]
-        [Description("Test Encrypt API resturns a valid HTTP response")]
+        [Description("Test Encrypt API returns a valid HTTP response")]
         public void TestEncryptResponseIsValidHTTP(string _algorithm, string _data, string _key, string _inputDataFormat, string _outputDataFormat)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.SymmetricController>>();
@@ -158,7 +158,7 @@ namespace CAAS.Tests.Controllers
         [Theory]
         [InlineData("aes_cbc_pkcs7", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex")]
         [InlineData("aes_ecb_pkcs7", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex")]
-        [Description("Test Decrypt API resturns a valid HTTP response")]
+        [Description("Test Decrypt API returns a valid HTTP response")]
         public void TestDecryptResponseIsValidHTTP(string _algorithm, string _cipherData, string _key, string _inputDataFormat, string _outputDataFormat)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.SymmetricController>>();
