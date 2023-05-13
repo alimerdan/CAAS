@@ -12,7 +12,6 @@ namespace CAAS.Tests.Controllers
 {
     public class SymmetricControllerTests
     {
-
         [Theory]
         [InlineData("aes_cbc_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "hex")]
         [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "hex")]

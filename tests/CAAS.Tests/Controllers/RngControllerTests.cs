@@ -10,8 +10,6 @@ namespace CAAS.Tests.Controllers
 {
     public class RngControllerTests
     {
-
-
         [Theory]
         [InlineData("csprng", 1, "hex")]
         [Description("Test Generate API response is valid HTTP response")]
