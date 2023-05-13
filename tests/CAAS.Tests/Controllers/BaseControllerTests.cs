@@ -37,39 +37,6 @@ namespace CAAS.Tests.Controllers
             Assert.IsType<OkObjectResult>(res.Result);
             HealthCheckResponse? responseObject = (res.Result as ObjectResult).Value as HealthCheckResponse;
             Assert.Equal("Iam Healthy", responseObject.Status);
-
-        }
-
-        [Fact]
-        [Description("Test Health Check API returns expected status")]
-        public void TestHealthCheckStatusField()
-        {
-            var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
-            CAAS.Controllers.BaseController controller = new(logger)
-            {
-                ControllerContext = new ControllerContext()
-            };
-            controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            ActionResult<HealthCheckResponse> res = controller.GetHealth();
-            Assert.IsType<OkObjectResult>(res.Result);
-            HealthCheckResponse? responseObject = (res.Result as ObjectResult).Value as HealthCheckResponse;
-            Assert.Equal("Iam Healthy", responseObject.Status);
-
-        }
-
-        [Fact]
-        [Description("Test Health Check API returns expected processingTime")]
-        public void TestHealthCheckProcessingTimeField()
-        {
-            var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
-            CAAS.Controllers.BaseController controller = new(logger)
-            {
-                ControllerContext = new ControllerContext()
-            };
-            controller.ControllerContext.HttpContext = new DefaultHttpContext();
-            ActionResult<HealthCheckResponse> res = controller.GetHealth();
-            Assert.IsType<OkObjectResult>(res.Result);
-            HealthCheckResponse? responseObject = (res.Result as ObjectResult).Value as HealthCheckResponse;
             Assert.True(responseObject.ProcessingTimeInMs >= 0);
 
         }
