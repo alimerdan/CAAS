@@ -14,6 +14,7 @@ namespace CAAS.Tests.Utilities
             Assert.Equal(encodedData, encoded);
             Assert.Equal(decodedData, plain);
         }
+
         [Fact]
         public void GetNowTests()
         {
@@ -43,6 +44,7 @@ namespace CAAS.Tests.Utilities
             string hexData = Utils.ByteArrayToHexString(byteArrayData);
             Assert.Equal(hexData, hex);
         }
+
         [Theory]
         [InlineData("0112233445566778899AABBCCDDEEFF")]
         public void OddHexStringAndByteArrayTests(string hex)
@@ -96,6 +98,7 @@ namespace CAAS.Tests.Utilities
             Assert.Equal(transformedDataString2, plain);
 
         }
+
         [Theory]
         [InlineData("ascii", "0011223344556677", "30303131323233333434353536363737")]
         public void TransformASCIITextDataTests(string dataFormat, string plain, string expected)
