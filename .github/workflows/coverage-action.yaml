@@ -24,7 +24,7 @@ jobs:
       run: dotnet build src/CAAS/CAAS.csproj --configuration Release --no-restore
 
     - name: Test
-      run: dotnet test test/CAAS.Tests/Caas.Tests.csproj --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
+      run: dotnet test tests/CAAS.Tests/CAAS.Tests.csproj --configuration Release --no-build --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
 
     - name: Code Coverage Report
       uses: irongut/CodeCoverageSummary@v1.3.0
