@@ -20,8 +20,8 @@ jobs:
     - name: Restore Dependencies
       run: dotnet restore CAAS.sln
 
-    #- name: Build
-    #  run: dotnet build src/CAAS/CAAS.csproj --configuration Release --no-restore
+    - name: Build
+      run: dotnet build src/CAAS/CAAS.csproj --configuration Release --no-restore
 
     - name: Test
       run: dotnet test tests/CAAS.Tests/CAAS.Tests.csproj --configuration Release --verbosity normal --collect:"XPlat Code Coverage" --results-directory ./coverage
@@ -39,9 +39,9 @@ jobs:
         output: both
         thresholds: '60 80'
 
-    #- name: Add Coverage PR Comment
-    #  uses: marocchino/sticky-pull-request-comment@v2
-    #  if: github.event_name == 'pull_request'
-    #  with:
-    #    recreate: true
-    #    path: code-coverage-results.md
+    - name: Add Coverage PR Comment
+      uses: marocchino/sticky-pull-request-comment@v2
+      if: github.event_name == 'pull_request'
+      with:
+        recreate: true
+        path: code-coverage-results.md
