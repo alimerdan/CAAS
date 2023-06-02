@@ -9,7 +9,7 @@ using System.Diagnostics;
 
 namespace CAAS.Handlers.Symmetric
 {
-    public static class DecryptionRequestHandler
+    public static class SymmetricDecryptionRequestHandler
     {
         public static SymmetricDecryptionResponse Handle(SymmetricDecryptionRequest _decRequest)
         {

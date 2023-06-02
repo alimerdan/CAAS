@@ -55,7 +55,7 @@ namespace CAAS.Controllers
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                SymmetricDecryptionResponse res = DecryptionRequestHandler.Handle(decRequest);
+                SymmetricDecryptionResponse res = SymmetricDecryptionRequestHandler.Handle(decRequest);
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
             }
