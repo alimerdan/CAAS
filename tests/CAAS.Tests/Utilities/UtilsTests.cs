@@ -55,11 +55,30 @@ namespace CAAS.Tests.Utilities
         }
 
         [Theory]
-        [InlineData("Hello World", "SGVsbG8gV29ybGQ=")]
-        public void ByteArrayAndBase64Tests(string plain, string encoded)
+        [InlineData("Hello World", new byte[] { 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64 })]
+        public void StringToByteArrayASCIITests(string str, byte[] bytes)
         {
-            byte[] byteArrayData = Utils.StringToByteArray(plain);
-            string encodedData = Utils.ByteArrayToBase64String(byteArrayData);
+            byte[] convertedValue = Utils.StringToByteArray(str, System.Text.Encoding.ASCII);
+            Assert.Equal(bytes, convertedValue);
+            string convertedString = Utils.ByteArrayToString(bytes, System.Text.Encoding.ASCII);
+            Assert.Equal(str, convertedString);
+        }
+
+        [Theory]
+        [InlineData("Hello World", new byte[] { 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64 })]
+        public void StringToByteArrayUTF8Tests(string str, byte[] bytes)
+        {
+            byte[] convertedValue = Utils.StringToByteArray(str, System.Text.Encoding.UTF8);
+            Assert.Equal(bytes, convertedValue);
+            string convertedString = Utils.ByteArrayToString(bytes, System.Text.Encoding.UTF8);
+            Assert.Equal(str, convertedString);
+        }
+
+        [Theory]
+        [InlineData(new byte[] { 0x48, 0x65, 0x6c, 0x6c, 0x6f, 0x20, 0x57, 0x6f, 0x72, 0x6c, 0x64 }, "SGVsbG8gV29ybGQ=")]
+        public void ByteArrayAndBase64Tests(byte[] byteArrayPlainData, string encoded)
+        {
+            string encodedData = Utils.ByteArrayToBase64String(byteArrayPlainData);
             Assert.Equal(encodedData, encoded);
         }
 

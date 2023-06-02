@@ -155,6 +155,38 @@ namespace CAAS.Tests.Controllers
 
 
         [Theory]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "utf8", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "base64", "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "base64", "utf8", typeof(NotSupportedDataFormatForOperationException))]
+
+        [Description("Test Encrypt API not supported data format for operation response")]
+        public void TestEncryptNotSupportedDataFormatForOperationResponse(string _algorithm, string _data, string _key, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.SymmetricController>>();
+            CAAS.Controllers.SymmetricController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            SymmetricEncryptionRequest req = new()
+            {
+                Algorithm = _algorithm,
+                Data = _data,
+                Key = _key,
+                InputDataFormat = _inputDataFormat,
+                OutputDataFormat = _outputDataFormat
+
+            };
+            ActionResult<SymmetricEncryptionResponse> res = controller.Encrypt(req);
+            Assert.IsType<BadRequestObjectResult>(res.Result);
+            ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
+            Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+
+        }
+
+
+        [Theory]
         [InlineData("aes_cbc_pkcs7", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex")]
         [InlineData("aes_ecb_pkcs7", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex")]
         [Description("Test Decrypt API returns a valid HTTP response")]
@@ -275,6 +307,9 @@ namespace CAAS.Tests.Controllers
         [Theory]
         [InlineData("xxxx", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
+        [InlineData("", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "ascii", "hex", typeof(NotSupportedAlgorithmException))]
+        [InlineData("", "C656C652E6656125139C219FD9F6EABB", "00112233445566770011223344556677", "utf8", "hex", typeof(NotSupportedAlgorithmException))]
+
         [Description("Test Decrypt API not supported algorithm response")]
         public void TestDecryptionNotSupportedAlgorithmResponse(string _algorithm, string _cipherData, string _key, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
         {
@@ -297,6 +332,84 @@ namespace CAAS.Tests.Controllers
             Assert.IsType<BadRequestObjectResult>(res.Result);
             ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
             Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+
+        }
+
+        [Theory]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "ascii", "hex", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "ascii", "base64", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "utf8", "hex", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes_ecb_pkcs7", "0011223344556677", "00112233445566770011223344556677", "utf8", "base64", typeof(NotSupportedDataFormatForOperationException))]
+        [Description("Test Decrypt API not supported data format for operation response")]
+        public void TestDecryptionNotSupportedDataFormatForOperationResponse(string _algorithm, string _cipherData, string _key, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.SymmetricController>>();
+            CAAS.Controllers.SymmetricController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            SymmetricDecryptionRequest req = new()
+            {
+                Algorithm = _algorithm,
+                CipherData = _cipherData,
+                Key = _key,
+                InputDataFormat = _inputDataFormat,
+                OutputDataFormat = _outputDataFormat
+
+            };
+            ActionResult<SymmetricDecryptionResponse> res = controller.Decrypt(req);
+            Assert.IsType<BadRequestObjectResult>(res.Result);
+            ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
+            Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+
+        }
+
+
+        [Theory]
+        [InlineData("aes_cbc_pkcs7", "000102030405060708090A0B0C0D0E0F", "00112233445566770011223344556677", "hex", "hex")]
+        [InlineData("aes_cbc_pkcs7", "000102030405060708090A0B0C0D0E0F", "00112233445566770011223344556677", "hex", "base64")]
+        [InlineData("aes_cbc_pkcs7", "String Input", "00112233445566770011223344556677", "ascii", "hex")]
+        [InlineData("aes_cbc_pkcs7", "String Input", "00112233445566770011223344556677", "ascii", "base64")]
+        [InlineData("aes_cbc_pkcs7", "String Input", "00112233445566770011223344556677", "utf8", "hex")]
+        [InlineData("aes_cbc_pkcs7", "String Input", "00112233445566770011223344556677", "utf8", "base64")]
+        [Description("Test Full Cycle of Encryption/Decryption")]
+        public void TestEncryptionDecryptionFullCycle(string _algorithm, string _data, string _key, string _encryptionInputFormat, string _encryptionOutputFormat)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.SymmetricController>>();
+            CAAS.Controllers.SymmetricController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            SymmetricEncryptionRequest encryptionRequest = new()
+            {
+                Algorithm = _algorithm,
+                Data = _data,
+                Key = _key,
+                InputDataFormat = _encryptionInputFormat,
+                OutputDataFormat = _encryptionOutputFormat
+
+            };
+            ActionResult<SymmetricEncryptionResponse> encryptionResult = controller.Encrypt(encryptionRequest);
+            Assert.IsType<OkObjectResult>(encryptionResult.Result);
+            SymmetricEncryptionResponse? encryptionResponse = (encryptionResult.Result as ObjectResult).Value as SymmetricEncryptionResponse;
+            string cipherData = encryptionResponse.CipherData;
+
+            SymmetricDecryptionRequest decryptionRequest = new()
+            {
+                Algorithm = _algorithm,
+                CipherData = cipherData,
+                Key = _key,
+                InputDataFormat = _encryptionOutputFormat,
+                OutputDataFormat = _encryptionInputFormat
+
+            };
+            ActionResult<SymmetricDecryptionResponse> decryptionResult = controller.Decrypt(decryptionRequest);
+            Assert.IsType<OkObjectResult>(decryptionResult.Result);
+            SymmetricDecryptionResponse? decryptionResponse = (decryptionResult.Result as ObjectResult).Value as SymmetricDecryptionResponse;
+            Assert.Equal(decryptionResponse.Data, _data);
+
 
         }
 
@@ -346,5 +459,7 @@ namespace CAAS.Tests.Controllers
             Assert.IsType<BadRequestObjectResult>(res.Result);
 
         }
+
+
     }
 }
