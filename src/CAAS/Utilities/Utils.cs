@@ -46,8 +46,7 @@ namespace CAAS.Utilities
         }
         public static byte[] Base64StringToByteArray(string base64EncodedData)
         {
-            string plainText = DecodeBase64(base64EncodedData);
-            return StringToByteArray(plainText);
+            return Convert.FromBase64String(base64EncodedData);
         }
         public static string ByteArrayToBase64String(byte[] data)
         {
