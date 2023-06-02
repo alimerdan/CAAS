@@ -226,6 +226,36 @@ namespace CAAS.Tests.Controllers
         }
 
         [Theory]
+        [InlineData("aes128_cmac", "0011223344556677", "00112233445566770011223344556677", "hex", "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes128_cmac", "0011223344556677", "00112233445566770011223344556677", "hex", "utf8", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("sha256_hmac", "0011223344556677", "00112233445566770011223344556677", "hex", "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("sha256_hmac", "0011223344556677", "00112233445566770011223344556677", "hex", "utf8", typeof(NotSupportedDataFormatForOperationException))]
+        [Description("Test Sign API response if not supported data format for operation")]
+        public void TestSignNotsupportedDataFormatForOperationExceptionn(string _algorithm, string _data, string _key, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.MacController>>();
+            CAAS.Controllers.MacController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            SignRequest req = new()
+            {
+                Algorithm = _algorithm,
+                Data = _data,
+                Key = _key,
+                InputDataFormat = _inputDataFormat,
+                OutputDataFormat = _outputDataFormat
+
+            };
+            ActionResult<SignResponse> res = controller.Sign(req);
+            Assert.IsType<BadRequestObjectResult>(res.Result);
+            ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
+            Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+        }
+
+
+        [Theory]
         [InlineData("xxxx", "0011223344556677", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("", "0011223344556677", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("aes_cbc_pkcs7", "0011223344556677", "00112233445566770011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
@@ -284,6 +314,33 @@ namespace CAAS.Tests.Controllers
         [InlineData("aes128_cmac", "0011223344556677", "00112233445566770011223344556677", "F8409911928AEBF52A0C3A88AABE16A6", "", typeof(NotSupportedDataFormatException))]
         [Description("Test Verify API response if not supported data format provided")]
         public void TestVerifyNotsupportedDataFormatException(string _algorithm, string _data, string _key, string _signature, string _inputDataFormat, Type _exceptionType)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.MacController>>();
+            CAAS.Controllers.MacController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            VerifyRequest req = new()
+            {
+                Algorithm = _algorithm,
+                Data = _data,
+                Key = _key,
+                Signature = _signature,
+                InputDataFormat = _inputDataFormat
+
+            };
+            ActionResult<VerifyResponse> res = controller.Verify(req);
+            Assert.IsType<BadRequestObjectResult>(res.Result);
+            ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
+            Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+        }
+
+        [Theory]
+        [InlineData("aes128_cmac", "0011223344556677", "00112233445566770011223344556677", "F8409911928AEBF52A0C3A88AABE16A6", "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("aes128_cmac", "0011223344556677", "00112233445566770011223344556677", "F8409911928AEBF52A0C3A88AABE16A6", "utf8", typeof(NotSupportedDataFormatForOperationException))]
+        [Description("Test Verify API response if not supported data format for operation")]
+        public void TestVerifyNotsupportedDataFormatForOperationException(string _algorithm, string _data, string _key, string _signature, string _inputDataFormat, Type _exceptionType)
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.MacController>>();
             CAAS.Controllers.MacController controller = new(logger)

@@ -1,6 +1,7 @@
 ﻿using CAAS.CryptoLib.Algorithms.Mac;
 using CAAS.CryptoLib.Interfaces;
 using CAAS.Exceptions;
+using CAAS.Models;
 using CAAS.Models.Mac;
 using CAAS.Models.Mac.Verify;
 using CAAS.Utilities;
@@ -35,15 +36,34 @@ namespace CAAS.Handlers.Mac
         private static VerifyResponse ProcessRequest(VerifyRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
+            IMac processor = GetProcessor(algorithm);
+            ValidateRequestDataFormats(req);
             byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             byte[] key = Utils.TransformData(req.InputDataFormat, req.Key);
             byte[] signature = Utils.TransformData(req.InputDataFormat, req.Signature);
-            IMac processor = GetProcessor(algorithm);
             bool isVerified = processor.Verify(data, key, signature);
             return new VerifyResponse()
             {
                 IsVerified = isVerified
             };
+        }
+        private static void ValidateRequestDataFormats(VerifyRequest req)
+        {
+            if (!ValidateInputDataFormat(req.InputDataFormat))
+            {
+                throw new NotSupportedDataFormatForOperationException(req.InputDataFormat, "Mac Verify");
+            }
+        }
+
+        private static bool ValidateInputDataFormat(string dataFormat)
+        {
+            bool isSupportedInputDataFormat = DataFormatValues.GetDataFormat(dataFormat) switch
+            {
+                DataFormat.ascii => false,
+                DataFormat.utf8 => false,
+                _ => true
+            };
+            return isSupportedInputDataFormat;
         }
     }
 }

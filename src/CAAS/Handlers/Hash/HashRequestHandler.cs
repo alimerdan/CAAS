@@ -1,6 +1,7 @@
 ﻿using CAAS.CryptoLib.Algorithms.Hash;
 using CAAS.CryptoLib.Interfaces;
 using CAAS.Exceptions;
+using CAAS.Models;
 using CAAS.Models.Hash;
 using CAAS.Utilities;
 using System.Diagnostics;
@@ -31,13 +32,33 @@ namespace CAAS.Handlers.Hash
         private static HashResponse ProcessRequest(HashRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
-            byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             IHash processor = GetProcessor(algorithm);
+            ValidateRequestDataFormats(req);
+            byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             byte[] digestedData = processor.Generate(data);
             return new HashResponse()
             {
                 Digest = Utils.TransformData(req.OutputDataFormat, digestedData)
             };
+        }
+
+        private static void ValidateRequestDataFormats(HashRequest req)
+        {
+            if (!ValidateOutputDataFormat(req.OutputDataFormat))
+            {
+                throw new NotSupportedDataFormatForOperationException(req.OutputDataFormat, "Digest");
+            }
+        }
+
+        private static bool ValidateOutputDataFormat(string dataFormat)
+        {
+            bool isSupportedOutputDataFormat = DataFormatValues.GetDataFormat(dataFormat) switch
+            {
+                DataFormat.ascii => false,
+                DataFormat.utf8 => false,
+                _ => true
+            };
+            return isSupportedOutputDataFormat;
         }
     }
 }
