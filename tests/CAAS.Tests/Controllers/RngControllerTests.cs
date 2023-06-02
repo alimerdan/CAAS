@@ -110,6 +110,32 @@ namespace CAAS.Tests.Controllers
         }
 
         [Theory]
+        [InlineData("csprng", 1, "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("csprng", 1, "utf8", typeof(NotSupportedDataFormatForOperationException))]
+        [Description("Test Generate API NotSupportedDataFormatForOperation response")]
+        public void TestGenerateNotSupportedDataFormatForOperationResponse(string _algorithm, int _size, string _outputDataFormat, Type _exceptionType)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.RngController>>();
+            CAAS.Controllers.RngController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            RngRequest req = new()
+            {
+                Algorithm = _algorithm,
+                Size = _size,
+                OutputDataFormat = _outputDataFormat
+
+            };
+            ActionResult<RngResponse> res = controller.Generate(req);
+            Assert.IsType<BadRequestObjectResult>(res.Result);
+            ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
+            Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+
+        }
+
+        [Theory]
         [InlineData("xxx", 1, "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("", 1, "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("aes_cbc_pkcs7", 1, "hex", typeof(NotSupportedAlgorithmException))]

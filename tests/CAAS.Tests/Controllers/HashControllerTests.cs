@@ -141,6 +141,33 @@ namespace CAAS.Tests.Controllers
         }
 
         [Theory]
+        [InlineData("sha256", "0011223344556677", "hex", "utf8", typeof(NotSupportedDataFormatForOperationException))]
+        [InlineData("sha256", "0011223344556677", "hex", "ascii", typeof(NotSupportedDataFormatForOperationException))]
+        [Description("Test Digest API returns NotSupportedDataFormatForOperation Response")]
+        public void TestInvalidDigestNotSupportedDataFormatForOperationExceptionResponse(string _algorithm, string _data, string _inputDataFormat, string _outputDataFormat, Type _exceptionType)
+        {
+            var logger = Mock.Of<ILogger<CAAS.Controllers.HashController>>();
+            CAAS.Controllers.HashController controller = new(logger)
+            {
+                ControllerContext = new ControllerContext()
+            };
+            controller.ControllerContext.HttpContext = new DefaultHttpContext();
+            HashRequest req = new()
+            {
+                Algorithm = _algorithm,
+                Data = _data,
+                InputDataFormat = _inputDataFormat,
+                OutputDataFormat = _outputDataFormat
+
+            };
+            ActionResult<HashResponse> res = controller.Digest(req);
+            Assert.IsType<BadRequestObjectResult>(res.Result);
+            ErrorResponse? responseObject = (res.Result as ObjectResult).Value as ErrorResponse;
+            Assert.Equal(_exceptionType.FullName, responseObject.ExceptionType);
+
+        }
+
+        [Theory]
         [InlineData("sha11256", "0011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("zzz", "0011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
         [InlineData("", "0011223344556677", "hex", "hex", typeof(NotSupportedAlgorithmException))]
