@@ -15,9 +15,7 @@ namespace CAAS.Handlers.Symmetric
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
-
             SymmetricDecryptionResponse res = ProcessRequest(_decRequest);
-
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
             return res;
