@@ -10,12 +10,12 @@ namespace CAAS.Handlers.Mac
 {
     public static class MacRequestHandler
     {
-        public static MacResponse Handle(MacRequest _signRequest)
+        public static MacResponse Handle(MacRequest _generationRequest)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            MacResponse res = ProcessRequest(_signRequest);
+            MacResponse res = ProcessRequest(_generationRequest);
 
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
