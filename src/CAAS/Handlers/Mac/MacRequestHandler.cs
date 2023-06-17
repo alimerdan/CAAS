@@ -8,7 +8,7 @@ using System.Diagnostics;
 
 namespace CAAS.Handlers.Mac
 {
-    public static class SignRequestHandler
+    public static class MacRequestHandler
     {
         public static MacResponse Handle(MacRequest _signRequest)
         {
