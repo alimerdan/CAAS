@@ -20,7 +20,7 @@ namespace CAAS.Controllers
             _logger = logger;
         }
 
-        [HttpPost("sign")]
+        [HttpPost("generate")]
         [Consumes("application/json")]
         [ProducesResponseType(typeof(MacResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
@@ -30,7 +30,7 @@ namespace CAAS.Controllers
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                MacResponse res = SignRequestHandler.Handle(signRequest);
+                MacResponse res = MacRequestHandler.Handle(signRequest);
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
             }
