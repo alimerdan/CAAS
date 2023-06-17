@@ -26,8 +26,4 @@
     <ProjectReference Include="..\..\src\CAAS\CAAS.csproj" />
   </ItemGroup>
 
-  <ItemGroup>
-    <Folder Include="NewFolder\" />
-  </ItemGroup>
-
 </Project>

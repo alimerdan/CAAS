@@ -25,12 +25,12 @@ namespace CAAS.Controllers
         [ProducesResponseType(typeof(MacResponse), 200)]
         [ProducesResponseType(typeof(ErrorResponse), 400)]
         [ProducesResponseType(typeof(ErrorResponse), 500)]
-        public ActionResult<MacResponse> Generate([FromBody] MacRequest signRequest)
+        public ActionResult<MacResponse> Generate([FromBody] MacRequest macRequest)
         {
             try
             {
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {Request.ContentLength} bytes");
-                MacResponse res = MacRequestHandler.Handle(signRequest);
+                MacResponse res = MacRequestHandler.Handle(macRequest);
                 _logger.LogInformation($"{Utils.GetNow()} \t-\t {Request.Path} \t-\t {res.ProcessingTimeInMs} ms");
                 return Ok(res);
             }

@@ -5,7 +5,6 @@ namespace CAAS
 {
     public class ErrorResponse
     {
-
         public ErrorResponse(Exception ex)
         {
             ExceptionType = ex.GetType().FullName;
