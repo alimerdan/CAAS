@@ -1,10 +1,10 @@
 using System.ComponentModel;
 using System.ComponentModel.DataAnnotations;
 
-namespace CAAS.Models.Mac.Sign
+namespace CAAS.Models.Mac
 {
 
-    public class SignResponse
+    public class MacResponse
     {
 
         [Required]
