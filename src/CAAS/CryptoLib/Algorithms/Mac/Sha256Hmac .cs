@@ -2,6 +2,8 @@
 using Org.BouncyCastle.Crypto.Digests;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
+using System;
+using System.Linq;
 
 namespace CAAS.CryptoLib.Algorithms.Mac
 {
