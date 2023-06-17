@@ -3,7 +3,6 @@ using Org.BouncyCastle.Crypto.Engines;
 using Org.BouncyCastle.Crypto.Macs;
 using Org.BouncyCastle.Crypto.Parameters;
 using System;
-using System.Linq;
 
 namespace CAAS.CryptoLib.Algorithms.Mac
 {
@@ -25,7 +24,7 @@ namespace CAAS.CryptoLib.Algorithms.Mac
             }
             catch (Exception e)
             {
-                Exception exception = new Exception("Couldn't prefrom AES Sign Operation due to error: '" + e.Message + "'");
+                Exception exception = new Exception("Couldn't prefrom AES Mac Generation Operation due to error: '" + e.Message + "'");
                 throw exception;
             }
         }

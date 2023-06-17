@@ -10,12 +10,12 @@ namespace CAAS.Handlers.Mac
 {
     public static class MacRequestHandler
     {
-        public static MacResponse Handle(MacRequest _generationRequest)
+        public static MacResponse Handle(MacRequest _macRequest)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            MacResponse res = ProcessRequest(_generationRequest);
+            MacResponse res = ProcessRequest(_macRequest);
 
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
@@ -49,7 +49,7 @@ namespace CAAS.Handlers.Mac
         {
             if (!ValidateOutputDataFormat(req.OutputDataFormat))
             {
-                throw new NotSupportedDataFormatForOperationException(req.OutputDataFormat, "Mac Sign");
+                throw new NotSupportedDataFormatForOperationException(req.OutputDataFormat, "Mac Generation");
             }
         }
 
