@@ -20,10 +20,5 @@ namespace CAAS.CryptoLib.Algorithms.Mac
 
             return result;
         }
-
-        public bool Verify(byte[] data, byte[] key, byte[] signature)
-        {
-            return signature.SequenceEqual(Generate(data, key));
-        }
     }
 }

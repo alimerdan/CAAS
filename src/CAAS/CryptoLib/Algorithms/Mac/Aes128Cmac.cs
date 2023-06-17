@@ -29,10 +29,5 @@ namespace CAAS.CryptoLib.Algorithms.Mac
                 throw exception;
             }
         }
-
-        public bool Verify(byte[] data, byte[] key, byte[] signature)
-        {
-            return signature.SequenceEqual(Generate(data, key));
-        }
     }
 }

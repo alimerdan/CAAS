@@ -3,7 +3,6 @@ using CAAS.CryptoLib.Interfaces;
 using CAAS.Exceptions;
 using CAAS.Models;
 using CAAS.Models.Mac;
-using CAAS.Models.Mac.Sign;
 using CAAS.Utilities;
 using System.Diagnostics;
 
@@ -11,12 +10,12 @@ namespace CAAS.Handlers.Mac
 {
     public static class SignRequestHandler
     {
-        public static SignResponse Handle(SignRequest _signRequest)
+        public static MacResponse Handle(MacRequest _signRequest)
         {
             Stopwatch stopwatch = new Stopwatch();
             stopwatch.Start();
 
-            SignResponse res = ProcessRequest(_signRequest);
+            MacResponse res = ProcessRequest(_signRequest);
 
             stopwatch.Stop();
             res.ProcessingTimeInMs = stopwatch.Elapsed.TotalMilliseconds;
@@ -33,7 +32,7 @@ namespace CAAS.Handlers.Mac
             };
         }
 
-        private static SignResponse ProcessRequest(SignRequest req)
+        private static MacResponse ProcessRequest(MacRequest req)
         {
             string algorithm = req.Algorithm.ToString().Trim().ToLower();
             IMac processor = GetProcessor(algorithm);
@@ -41,12 +40,12 @@ namespace CAAS.Handlers.Mac
             byte[] data = Utils.TransformData(req.InputDataFormat, req.Data);
             byte[] key = Utils.TransformData(req.InputDataFormat, req.Key);
             byte[] cipherData = processor.Generate(data, key);
-            return new SignResponse()
+            return new MacResponse()
             {
                 Mac = Utils.TransformData(req.OutputDataFormat, cipherData)
             };
         }
-        private static void ValidateRequestDataFormats(SignRequest req)
+        private static void ValidateRequestDataFormats(MacRequest req)
         {
             if (!ValidateOutputDataFormat(req.OutputDataFormat))
             {
