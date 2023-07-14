@@ -336,3 +336,4 @@ ASALocalRun/
 /tests/CAAS.Tests/coveragereport
 /tests/CAAS.Tests/CoverageHistory
 /.sonarqube
+/.vscode
