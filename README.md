@@ -13,4 +13,4 @@
   ```bash
   docker run  -p8888:80 alimerdan/caas
   ```
-  Then open localhost:8888/swagger
+  Then open http://localhost:8888/swagger
