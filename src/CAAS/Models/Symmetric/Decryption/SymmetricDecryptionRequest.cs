@@ -11,7 +11,7 @@ namespace CAAS.Models.Symmetric.Decryption
         public string CipherData { get; set; }
 
         [Required]
-        [DefaultValue("aes_cbc")]
+        [DefaultValue("aes_cbc_pkcs7")]
         public string Algorithm { get; set; }
 
         [Required]
