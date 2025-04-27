@@ -56,7 +56,7 @@ namespace CAAS.Tests.Controllers
 
         [Fact]
         [Description("Test DataFormats API returns valid http response")]
-        public void TestDataFormatsResonseIsValidHTTP()
+        public void TestDataFormatsResponseIsValidHTTP()
         {
             var logger = Mock.Of<ILogger<CAAS.Controllers.BaseController>>();
             CAAS.Controllers.BaseController controller = new(logger)
